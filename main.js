@@ -340,22 +340,16 @@ function initPluginsAccordion() {
         trigger: '#plugins',
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.5,
-        snap: {
-          snapTo: [0, 1],
-          duration: { min: 0.25, max: 0.4 },
-          delay: 0.05,
-          ease: 'power2.out'
-        },
+        scrub: 0.8,
         invalidateOnRefresh: true
       }
     });
 
     // Matching Reference Images 2 & 4:
-    // Card 2 simply slides up from below over Card 1 and docks neatly stacked under Card 1's header bar
+    // Card 2 glides continuously and smoothly up from below over Card 1
     tl.to(card2, {
-      top: metrics.stackOffset,
-      ease: 'power2.out',
+      top: () => metrics.stackOffset,
+      ease: 'none',
       duration: 1,
       onStart: () => {
         card1.classList.remove('is-expanded');

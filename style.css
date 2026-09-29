@@ -1557,7 +1557,7 @@ body {
 .plugins-pinned-section {
   position: relative;
   background: var(--bg-dark);
-  height: 135vh; /* Pinned scrub track calibrated for snappy 1-scroll transition */
+  height: 125vh; /* Pinned scrub track calibrated for fluid single-scroll transition */
   padding: 0;
 }
 
@@ -1779,29 +1779,26 @@ body {
   transform: scale(1.04);
 }
 
-.stack-hero-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: #ff9d54;
-  background: rgba(11, 14, 22, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 107, 0, 0.4);
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+.stack-verified-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  gap: 0.45rem;
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: #ff9d54;
+  background: rgba(255, 107, 0, 0.08);
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  width: fit-content;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.25rem;
 }
 
-.stack-hero-badge svg {
-  color: #ff6b00;
-  stroke: #ff6b00;
+.stack-verified-pill svg {
+  color: #22c55e;
+  stroke: #22c55e;
+  flex-shrink: 0;
 }
 
 /* Right Text Content */
