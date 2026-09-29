@@ -295,137 +295,132 @@ function initPluginsAccordion() {
 
   const body1 = document.getElementById('pbody-1');
   const body2 = document.getElementById('pbody-2');
+  const wrapper = document.getElementById('accordionStack') || document.querySelector('.stack-accordion-wrapper');
 
   if (!card1 || !card2 || !body1 || !body2) return;
-
-  const OFFSET_STEP = 80; // Sequential stacking offset with generous 18px gap below Card 1
 
   // Check reduced motion
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) return;
 
-  // Check if GSAP and ScrollTrigger are available
-    let tl = null;
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
+  // Keep both bodies fully rendered at natural height - NO CARD OPENING / HEIGHT DEFORMATION ANIMATION
+  body1.style.height = 'auto';
+  body1.style.opacity = '1';
+  body2.style.height = 'auto';
+  body2.style.opacity = '1';
 
-      // Initial setup
-      gsap.set(card1, { top: 0, zIndex: 10 });
-      gsap.set(body1, { height: 'auto', opacity: 1 });
-      card1.classList.add('is-expanded');
+  // Compute responsive gap and initial offset
+  function getLayoutMetrics() {
+    const isMobile = window.innerWidth <= 768;
+    const gap = isMobile ? 20 : 26;
+    const card1H = card1.offsetHeight;
+    const initTop2 = card1H + gap;
+    return { isMobile, gap, card1H, initTop2 };
+  }
 
-      gsap.set(card2, { top: 485, zIndex: 20 });
-      gsap.set(body2, { height: 0, opacity: 0, paddingBottom: 0, paddingTop: 0 });
+  let metrics = getLayoutMetrics();
+  if (wrapper) {
+    wrapper.style.height = `${metrics.initTop2 + 66}px`;
+  }
 
-      tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#plugins',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.5,
-          snap: {
-            snapTo: [0, 1],
-            duration: { min: 0.25, max: 0.4 },
-            delay: 0.05,
-            ease: 'power2.out'
-          },
-          invalidateOnRefresh: true
-        }
-      });
+  let tl = null;
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
 
-      // Collapse Card 1 to top header pill, slide Card 2 to top: 80px and expand
-      tl.to(body1, {
-        height: 0,
-        opacity: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
-        ease: 'power2.inOut',
-        duration: 1
-      }, 0)
-      .to(card2, {
-        top: OFFSET_STEP,
-        ease: 'power2.out',
-        duration: 1
-      }, 0)
-      .to(body2, {
-        height: 'auto',
-        opacity: 1,
-        paddingTop: 24,
-        paddingBottom: 26,
-        ease: 'power2.inOut',
-        duration: 1,
-        onStart: () => {
-          card1.classList.remove('is-expanded');
-          card2.classList.add('is-expanded');
+    // Initial setup: Card 1 at top: 0, Card 2 resting below Card 1 with a clear gap
+    gsap.set(card1, { top: 0, zIndex: 10, scale: 1, opacity: 1 });
+    gsap.set(card2, { top: metrics.initTop2, zIndex: 20 });
+    card1.classList.add('is-expanded');
+    card2.classList.remove('is-expanded');
+
+    tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#plugins',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,
+        snap: {
+          snapTo: [0, 1],
+          duration: { min: 0.25, max: 0.4 },
+          delay: 0.05,
+          ease: 'power2.out'
         },
-        onReverseComplete: () => {
-          card2.classList.remove('is-expanded');
-          card1.classList.add('is-expanded');
-        }
-      }, 0.1);
-    }
-
-    // Interactive Click / Keyboard accordion support
-    const cards = [
-      { card: card1, body: body1, top: 0 },
-      { card: card2, body: body2, top: OFFSET_STEP }
-    ];
-
-    cards.forEach((item, idx) => {
-      const header = item.card.querySelector('.stack-card-header');
-      if (!header) return;
-
-      function handleToggle(e) {
-        if (e.target.closest('a')) return;
-
-        const isExpanded = item.card.classList.contains('is-expanded');
-        if (isExpanded) return; // Already active
-
-        if (tl) {
-          gsap.to(tl, {
-            progress: idx === 1 ? 1 : 0,
-            duration: 0.45,
-            ease: 'power2.out'
-          });
-          if (tl.scrollTrigger) {
-            const targetPos = idx === 1 ? tl.scrollTrigger.end : tl.scrollTrigger.start;
-            window.scrollTo({ top: targetPos, behavior: 'smooth' });
-          }
-        } else {
-          cards.forEach((c, cIdx) => {
-            if (cIdx === idx) {
-              c.card.classList.add('is-expanded');
-              c.card.setAttribute('aria-expanded', 'true');
-              if (typeof gsap !== 'undefined') {
-                gsap.to(c.card, { top: c.top, duration: 0.45, ease: 'power2.out' });
-                gsap.to(c.body, { height: 'auto', opacity: 1, paddingTop: 24, paddingBottom: 26, duration: 0.45, ease: 'power2.out' });
-              }
-            } else if (cIdx < idx) {
-              c.card.classList.remove('is-expanded');
-              c.card.setAttribute('aria-expanded', 'false');
-              if (typeof gsap !== 'undefined') {
-                gsap.to(c.card, { top: c.top, duration: 0.4, ease: 'power2.out' });
-                gsap.to(c.body, { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0, duration: 0.4, ease: 'power2.out' });
-              }
-            } else {
-              c.card.classList.remove('is-expanded');
-              c.card.setAttribute('aria-expanded', 'false');
-              if (typeof gsap !== 'undefined') {
-                gsap.to(c.card, { top: 485, duration: 0.4, ease: 'power2.out' });
-                gsap.to(c.body, { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0, duration: 0.4, ease: 'power2.out' });
-              }
-            }
-          });
-        }
+        invalidateOnRefresh: true
       }
-
-      header.addEventListener('click', handleToggle);
-      header.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleToggle(e);
-        }
-      });
     });
+
+    // Card 2 simply comes from below to up!
+    // No height deformation, no card opening animation!
+    tl.to(card2, {
+      top: 0,
+      ease: 'power2.out',
+      duration: 1
+    }, 0)
+    .to(card1, {
+      scale: 0.96,
+      opacity: 0.2,
+      ease: 'power2.out',
+      duration: 1,
+      onStart: () => {
+        card1.classList.remove('is-expanded');
+        card2.classList.add('is-expanded');
+      },
+      onReverseComplete: () => {
+        card2.classList.remove('is-expanded');
+        card1.classList.add('is-expanded');
+      }
+    }, 0);
+
+    // Recalculate on resize or scrolltrigger refresh
+    ScrollTrigger.addEventListener('refresh', () => {
+      metrics = getLayoutMetrics();
+      if (wrapper) wrapper.style.height = `${metrics.initTop2 + 66}px`;
+    });
+  }
+
+  // Interactive Click / Keyboard toggle support
+  function navigateCard(idx) {
+    if (tl) {
+      gsap.to(tl, {
+        progress: idx === 1 ? 1 : 0,
+        duration: 0.45,
+        ease: 'power2.out'
+      });
+      if (tl.scrollTrigger) {
+        const targetPos = idx === 1 ? tl.scrollTrigger.end : tl.scrollTrigger.start;
+        window.scrollTo({ top: targetPos, behavior: 'smooth' });
+      }
+    } else {
+      metrics = getLayoutMetrics();
+      if (idx === 1) {
+        gsap.to(card2, { top: 0, duration: 0.45, ease: 'power2.out' });
+        gsap.to(card1, { scale: 0.96, opacity: 0.2, duration: 0.45, ease: 'power2.out' });
+        card1.classList.remove('is-expanded');
+        card2.classList.add('is-expanded');
+      } else {
+        gsap.to(card2, { top: metrics.initTop2, duration: 0.45, ease: 'power2.out' });
+        gsap.to(card1, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' });
+        card2.classList.remove('is-expanded');
+        card1.classList.add('is-expanded');
+      }
+    }
+  }
+
+  const h1 = card1.querySelector('.stack-card-header');
+  const h2 = card2.querySelector('.stack-card-header');
+
+  [ { header: h1, idx: 0 }, { header: h2, idx: 1 } ].forEach(item => {
+    if (!item.header) return;
+    item.header.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      navigateCard(item.idx);
+    });
+    item.header.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navigateCard(item.idx);
+      }
+    });
+  });
 }
 
