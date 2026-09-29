@@ -309,27 +309,29 @@ function initPluginsAccordion() {
   body2.style.height = 'auto';
   body2.style.opacity = '1';
 
-  // Compute responsive gap and initial offset
+  // Compute responsive layout metrics matching reference video
   function getLayoutMetrics() {
     const isMobile = window.innerWidth <= 768;
-    const gap = isMobile ? 20 : 26;
-    const card1H = card1.offsetHeight;
-    const initTop2 = card1H + gap;
-    return { isMobile, gap, card1H, initTop2 };
+    const stackOffset = isMobile ? 64 : 74; // Stacks neatly below Card 1 header
+    const card2H = card2.offsetHeight || 500;
+    const wrapperH = stackOffset + card2H + 16;
+    const startY = wrapperH + 60; // Positioned cleanly offscreen below
+    return { isMobile, stackOffset, card2H, wrapperH, startY };
   }
 
   let metrics = getLayoutMetrics();
   if (wrapper) {
-    wrapper.style.height = `${metrics.initTop2 + 66}px`;
+    wrapper.style.height = `${metrics.wrapperH}px`;
   }
 
   let tl = null;
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initial setup: Card 1 at top: 0, Card 2 resting below Card 1 with a clear gap
-    gsap.set(card1, { top: 0, zIndex: 10, scale: 1, opacity: 1 });
-    gsap.set(card2, { top: metrics.initTop2, zIndex: 20 });
+    // Initial setup matching Reference Image 1:
+    // Card 1 centered at top: 0; Card 2 hidden below offscreen
+    gsap.set(card1, { top: 0, zIndex: 10 });
+    gsap.set(card2, { top: metrics.startY, zIndex: 20 });
     card1.classList.add('is-expanded');
     card2.classList.remove('is-expanded');
 
@@ -349,16 +351,10 @@ function initPluginsAccordion() {
       }
     });
 
-    // Card 2 simply comes from below to up!
-    // No height deformation, no card opening animation!
+    // Matching Reference Images 2 & 4:
+    // Card 2 simply slides up from below over Card 1 and docks neatly stacked under Card 1's header bar
     tl.to(card2, {
-      top: 0,
-      ease: 'power2.out',
-      duration: 1
-    }, 0)
-    .to(card1, {
-      scale: 0.96,
-      opacity: 0.2,
+      top: metrics.stackOffset,
       ease: 'power2.out',
       duration: 1,
       onStart: () => {
@@ -374,7 +370,12 @@ function initPluginsAccordion() {
     // Recalculate on resize or scrolltrigger refresh
     ScrollTrigger.addEventListener('refresh', () => {
       metrics = getLayoutMetrics();
-      if (wrapper) wrapper.style.height = `${metrics.initTop2 + 66}px`;
+      if (wrapper) wrapper.style.height = `${metrics.wrapperH}px`;
+      if (tl.progress() === 0) {
+        gsap.set(card2, { top: metrics.startY });
+      } else if (tl.progress() === 1) {
+        gsap.set(card2, { top: metrics.stackOffset });
+      }
     });
   }
 
@@ -393,13 +394,11 @@ function initPluginsAccordion() {
     } else {
       metrics = getLayoutMetrics();
       if (idx === 1) {
-        gsap.to(card2, { top: 0, duration: 0.45, ease: 'power2.out' });
-        gsap.to(card1, { scale: 0.96, opacity: 0.2, duration: 0.45, ease: 'power2.out' });
+        gsap.to(card2, { top: metrics.stackOffset, duration: 0.45, ease: 'power2.out' });
         card1.classList.remove('is-expanded');
         card2.classList.add('is-expanded');
       } else {
-        gsap.to(card2, { top: metrics.initTop2, duration: 0.45, ease: 'power2.out' });
-        gsap.to(card1, { scale: 1, opacity: 1, duration: 0.45, ease: 'power2.out' });
+        gsap.to(card2, { top: metrics.startY, duration: 0.45, ease: 'power2.out' });
         card2.classList.remove('is-expanded');
         card1.classList.add('is-expanded');
       }

@@ -1598,6 +1598,7 @@ body {
   min-height: 580px;
   height: 590px;
   margin-top: 0.5rem;
+  overflow: hidden;
 }
 
 /* Stack Card */
@@ -1611,7 +1612,7 @@ body {
   overflow: hidden;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 107, 0, 0.08);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.85), 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 107, 0, 0.08);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   will-change: transform, top, opacity;
 }
