@@ -1,772 +1,1580 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Akhilesh B S | Unreal Engine Developer</title>
-<!-- ── FAVICON ── -->
-<!-- SVG favicon: works on all modern browsers — glowing diamond with "AB" initials -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23020408'/><polygon points='16,3 29,16 16,29 3,16' fill='none' stroke='%2300c3ff' stroke-width='1.5'/><polygon points='16,7 25,16 16,25 7,16' fill='%23060d14' stroke='%2300c3ff' stroke-width='0.8' opacity='0.6'/><text x='16' y='20' font-family='monospace' font-weight='900' font-size='9' fill='%2300c3ff' text-anchor='middle'>AB</text></svg>"/>
-<!-- PNG fallback for older browsers -->
-<link rel="alternate icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB5SURBVFhH7ZZBCsAgDATz/09boQeRJi4xICzOwxMdkl0AAAD+pZQ651xKKSilVEopVQhhjDHWWhtCCM45Z621IYTgnHPWWhtCCM45Z621IYTgnHPWWhtCCM45Z621IYTgnHPWWhtCCM45Z621IYTgnHPWWhtCCM45Z621AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAMBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3gAAAABJRU5ErkJggg=="/>
-<!-- Apple touch icon -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23020408'/><polygon points='90,18 162,90 90,162 18,90' fill='none' stroke='%2300c3ff' stroke-width='8'/><polygon points='90,42 138,90 90,138 42,90' fill='%23060d14' stroke='%2300c3ff' stroke-width='4' opacity='0.5'/><text x='90' y='108' font-family='monospace' font-weight='900' font-size='52' fill='%2300c3ff' text-anchor='middle'>AB</text></svg>"/>
-<!-- Browser tab theme color -->
-<meta name="theme-color" content="#020408"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Akhilesh B S | Unreal Engine 5 Developer &amp; XR Simulation Engineer</title>
+  <meta name="description" content="Portfolio of Akhilesh B S — Unreal Engine 5 Developer & XR Simulation Engineer. Building real-time flight simulations, digital twins, and C++ plugins."/>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff6b00'/><path d='M8 12l8-4 8 4-8 4-8-4zm0 6l8 4 8-4' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
+  <meta name="theme-color" content="#080a10"/>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Caveat, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <!-- GSAP & ScrollTrigger for Pinned Stacking Accordions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<canvas id="particle-canvas"></canvas>
+  <!-- Ambient Cursor (Desktop only) -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#hero">AKHIL<span>//</span>UEDEV</a>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#about" onclick="closeNav()">Overview</a></li>
-    <li><a href="#whatido" onclick="closeNav()">Expertise</a></li>
-    <li><a href="#experience" onclick="closeNav()">Experience</a></li>
-    <li><a href="#skills" onclick="closeNav()">Skills</a></li>
-    <li><a href="#projects" onclick="closeNav()">Projects</a></li>
-    <li><a href="#gallery" onclick="closeNav()">Showcase</a></li>
-    <li><a href="#education" onclick="closeNav()">Education</a></li>
-    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
-  </ul>
-  <a class="nav-cta" href="assets/Akhilesh_BS_Resume.pdf" target="_blank">Resume ↗</a>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-line"></div>
-  <div class="hero-line"></div>
-  <div class="hero-content">
-    <div class="hero-tag">Real-time Systems · Unreal Engine · C++</div>
-    <h1 class="hero-name">Akhilesh <span class="accent">B S</span></h1>
-    <div class="hero-role"><span id="typed-text"></span></div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-num" data-count="2.5+">0</span>
-        <div class="hero-stat-label">Years XP</div>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num" data-count="6">0</span>
-        <div class="hero-stat-label">Projects Delivered</div>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num" data-count="2">0</span>
-        <div class="hero-stat-label">Organizations</div>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num" data-count="100%">0</span>
-        <div class="hero-stat-label">Committed</div>
-      </div>
-    </div>
-    <div class="tag-strip">
-      <div class="tag-strip-inner">
-        <span class="tag-pill">Unreal Engine 5</span>
-        <span class="tag-pill org">XR Simulation</span>
-        <span class="tag-pill">Digital Twin Systems</span>
-        <span class="tag-pill org">Real-time 3D</span>
-        <span class="tag-pill">C++ Development</span>
-        <span class="tag-pill org">Blueprint Systems</span>
-        <span class="tag-pill">UI Systems (UMG)</span>
-        <span class="tag-pill org">PCG (Procedural Generation)</span>
-        <span class="tag-pill">Flight Simulation</span>
-        <span class="tag-pill org">JSBSim Integration</span>
-        <span class="tag-pill">AR / VR / MR</span>
-        <span class="tag-pill org">Pixel Streaming</span>
-        <span class="tag-pill">API Integration (REST/JSON)</span>
-        <span class="tag-pill org">Real-time Data Sync</span>
-        <span class="tag-pill">Google Sheets Integration</span>
-        <span class="tag-pill org">Inventory Systems</span>
-        <span class="tag-pill">Performance Optimization</span>
-        <!-- duplicate for seamless loop -->
-        <span class="tag-pill">Unreal Engine 5</span>
-        <span class="tag-pill org">XR Simulation</span>
-        <span class="tag-pill">Digital Twin Systems</span>
-        <span class="tag-pill org">Real-time 3D</span>
-        <span class="tag-pill">C++ Development</span>
-        <span class="tag-pill org">Blueprint Systems</span>
-        <span class="tag-pill">UI Systems (UMG)</span>
-        <span class="tag-pill org">PCG (Procedural Generation)</span>
-        <span class="tag-pill">Flight Simulation</span>
-        <span class="tag-pill org">JSBSim Integration</span>
-        <span class="tag-pill">AR / VR / MR</span>
-        <span class="tag-pill org">Pixel Streaming</span>
-        <span class="tag-pill">API Integration (REST/JSON)</span>
-        <span class="tag-pill org">Real-time Data Sync</span>
-        <span class="tag-pill">Google Sheets Integration</span>
-        <span class="tag-pill org">Inventory Systems</span>
-        <span class="tag-pill">Performance Optimization</span>
-      </div>
-    </div>
-    <div class="hero-btns">
-      <a class="btn-primary" href="#projects">View Projects</a>
-      <a class="btn-outline" href="#contact">Hire Me</a>
-    </div>
-  </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="section-label">01 // Overview</div>
-    <h2 class="section-title">About <span class="hl">Me</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-    <div class="about-grid">
-      <div class="about-photo-wrap reveal">
-        <div class="about-photo-frame">
-          <img src="assets/images/Akhil.jpeg" alt="Akhilesh B S"
-            onload="this.style.display='block'"
-            onerror="this.style.display='none';document.getElementById('photo-fallback').style.display='flex'"/>
-          <div id="photo-fallback" class="photo-fallback">
-            <div style="font-size:4rem;opacity:.2;">👤</div>
-          </div>
-          <div class="about-badge b1"><span class="num">2.5+</span><span class="lbl">Experience</span></div>
-        </div>
-      </div>
-      <div class="about-text reveal">
-        <p>Hi, I'm <strong>Akhilesh B S</strong> — an <strong>XR Simulation &amp; Digital Twin Engineer</strong> specializing in building real-time systems using Unreal Engine (C++ &amp; Blueprints).</p>
-        <p>With <strong>2.5+ years of hands-on experience</strong>, I have worked on <strong>flight simulation, digital twin platforms, and XR applications</strong>, focusing on performance, scalability, and real-world integration.</p>
-        <p>My work involves <strong>real-time data systems</strong> including API integration, UDP-based data flow, and <strong>live updates using Google Sheets</strong> for dynamic inventory and visualization systems. I also build <strong>interactive UI systems (UMG)</strong> and leverage <strong>procedural generation (PCG)</strong> for large-scale environments.</p>
-       <div class="competency-section">
-  <div class="passion-title">// Core Expertise</div>
-
-<div class="competency-grid-3">
-
-  <!-- TOP ROW (BLUE) -->
-  <div class="comp-card primary">
-    <div class="comp-name">Unreal Engine 5</div>
-    <div class="comp-meta">C++ · Blueprints</div>
-  </div>
-
-  <div class="comp-card primary">
-    <div class="comp-name">XR Simulation Systems</div>
-    <div class="comp-meta">VR · AR · MR</div>
-  </div>
-
-  <div class="comp-card primary">
-    <div class="comp-name">Digital Twin Platforms</div>
-    <div class="comp-meta">Architectural · Industrial</div>
-  </div>
-
-  <!-- BOTTOM ROW (ORANGE) -->
-  <div class="comp-card secondary">
-    <div class="comp-name">Real-time Data Integration</div>
-    <div class="comp-meta">REST · UDP · JSON</div>
-  </div>
-
-  <div class="comp-card secondary">
-    <div class="comp-name">Flight Simulation</div>
-    <div class="comp-meta">JSBSim · HUD Systems</div>
-  </div>
-
-  <div class="comp-card secondary">
-    <div class="comp-name">Procedural Systems (PCG)</div>
-    <div class="comp-meta">Large-scale Environments</div>
-  </div>
-
-</div>
-</div>
-</section>
-
-<!-- WHAT I DO -->
-<section id="whatido">
-  <div class="container">
-    <div class="section-label">02 // Expertise</div>
-    <h2 class="section-title">What I <span class="hl">Do</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-    <div class="whatido-grid">
-      <div class="whatido-card reveal">
-        <span class="wi-icon">🧠</span>
-        <div class="wi-title">XR Simulation Systems</div>
-        <p class="wi-desc">Build real-time simulation systems using Unreal Engine with C++ and Blueprints, focusing on performance, scalability, and engineering-grade accuracy.</p>
-        <div class="wi-tags"><span class="wi-tag">Unreal Engine 5</span><span class="wi-tag">C++</span><span class="wi-tag">Blueprints</span></div>
-      </div>
-      <div class="whatido-card reveal">
-        <span class="wi-icon">✈️</span>
-        <div class="wi-title">Flight Simulation</div>
-        <p class="wi-desc">Developed flight simulators integrating JSBSim physics, real-time data via UDP, and aircraft systems with accurate motion and control logic.</p>
-        <div class="wi-tags"><span class="wi-tag">JSBSim</span><span class="wi-tag">UDP</span><span class="wi-tag">Simulation</span></div>
-      </div>
-      <div class="whatido-card reveal">
-        <span class="wi-icon">🏢</span>
-        <div class="wi-title">Digital Twin Platforms</div>
-        <p class="wi-desc">Built interactive real estate digital twins with real-time inventory tracking showing flat availability (booked/available) using APIs and Google Sheets.</p>
-        <div class="wi-tags"><span class="wi-tag">Digital Twin</span><span class="wi-tag">APIs</span><span class="wi-tag">Real-time Inventory</span></div>
-      </div>
-      <div class="whatido-card reveal">
-        <span class="wi-icon">📡</span>
-        <div class="wi-title">Real-Time Data Integration</div>
-        <p class="wi-desc">Integrated live data pipelines using REST APIs, JSON, and UDP streams to drive dynamic simulation environments and real-time system updates.</p>
-        <div class="wi-tags"><span class="wi-tag">REST APIs</span><span class="wi-tag">JSON</span><span class="wi-tag">Data Sync</span></div>
-      </div>
-      <div class="whatido-card reveal">
-        <span class="wi-icon">🖥️</span>
-        <div class="wi-title">Interactive UI Systems</div>
-        <p class="wi-desc">Designed and developed responsive UI systems using UMG for dashboards, controls, and real-time interaction within simulation environments.</p>
-        <div class="wi-tags"><span class="wi-tag">UMG</span><span class="wi-tag">UI/UX</span><span class="wi-tag">Interaction</span></div>
-      </div>
-      <div class="whatido-card reveal">
-        <span class="wi-icon">⚙️</span>
-        <div class="wi-title">Procedural &amp; Runtime Systems</div>
-        <p class="wi-desc">Built runtime tools and procedural systems (PCG) for large-scale environments, including editing tools, save/load systems, and performance optimization.</p>
-        <div class="wi-tags"><span class="wi-tag">PCG</span><span class="wi-tag">Runtime Tools</span><span class="wi-tag">Optimization</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-label">03 // Experience</div>
-    <h2 class="section-title">Work <span class="hl">Experience</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-    <div class="exp-timeline">
-
-      <!-- CREDVEST -->
-      <div class="exp-card reveal" style="border-color:rgba(255,107,0,0.35);">
-        <div class="hud-corner tl"></div><div class="hud-corner br"></div>
-        <div class="exp-header">
-          <div class="exp-role">Unreal Engine Developer <span class="current-badge">Current</span></div>
-          <div class="exp-period">Oct 2025 – Present</div>
-        </div>
-        <div class="exp-company">// Credvest · Full-time</div>
-        <p class="exp-desc">Developing advanced real-time <strong>Digital Twin</strong> and <strong>Architectural Visualization</strong> applications using Unreal Engine. Building immersive VR-supported walkthrough systems with high-performance rendering, scalable UI frameworks, and real-time data integration for smart real estate solutions.</p>
-        <p class="exp-desc">Engineered production-level systems including <strong>pro-level Blueprint &amp; C++ architectures</strong>, optimized application performance for desktop and Android, and created modular tools for rapid deployment across multiple projects.</p>
-        <p class="exp-desc">Implemented <strong>real-time inventory systems</strong> connected with Google Sheets/CSV online data, enabling live property availability tracking.</p>
-        <p class="exp-desc">Developed a reusable <strong>analytics plugin</strong> to capture user behavior including session duration, interactions, and button clicks. The system stores structured data in JSON format and is designed for seamless integration across multiple Unreal projects.</p>
-        <p class="exp-desc">Built <strong>weather-driven digital twins</strong> using live API data and historical datasets, allowing dynamic environment simulation. Delivered cross-platform builds including <strong>Android deployments</strong>.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Unreal Engine</span><span class="exp-tag">C++</span>
-          <span class="exp-tag">Blueprints (Advanced)</span><span class="exp-tag">Digital Twin</span>
-          <span class="exp-tag">Architectural Viz</span><span class="exp-tag">VR/XR</span>
-          <span class="exp-tag">UI/UX Systems</span><span class="exp-tag">Animation Systems</span>
-          <span class="exp-tag">Optimization</span><span class="exp-tag">Google Sheets API</span>
-          <span class="exp-tag">JSON Analytics</span><span class="exp-tag">Weather API</span>
-          <span class="exp-tag">Android Build</span>
-        </div>
-      </div>
-
-      <!-- LTX JUNIOR -->
-      <div class="exp-card reveal">
-        <div class="hud-corner tl"></div><div class="hud-corner br"></div>
-        <div class="exp-header">
-          <div class="exp-role">Junior Unreal Engine Developer</div>
-          <div class="exp-period">Sep 2024 – Oct 2025 · 1.2 yr</div>
-        </div>
-        <div class="exp-company">// LTX — LaunchTrax · Full-time</div>
-        <p class="exp-desc">Worked on advanced <strong>flight simulation systems</strong> using JSBSim, developing realistic aircraft behavior, environment setup, and full simulation workflows including carrier-based operations and mission scenarios.</p>
-        <p class="exp-desc">Built large-scale procedural environments using <strong>latitude/longitude data</strong> to auto-generate buildings, roads, and vegetation, combined with real-time terrain generation and dynamic weather systems including day/night cycles, rain, and snow.</p>
-        <p class="exp-desc">Developed aircraft systems including <strong>model rigging, flight animations, cockpit UI integration, and custom HUDs</strong> for multiple aircraft types, ensuring accuracy and performance across simulations.</p>
-        <p class="exp-desc">Implemented <strong>real-time networking</strong> using UDP communication and contributed to VRPN-based integrations for Unreal Engine and Unity, supporting synchronized simulation data across systems.</p>
-        <p class="exp-desc">Delivered optimized, cross-platform applications with support for <strong>VR devices (Meta, Varjo)</strong>, including dogfight simulations, missile systems, multiplayer environments, and carrier landing operations.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Flight Simulation</span><span class="exp-tag">JSBSim</span>
-          <span class="exp-tag">Procedural Generation</span><span class="exp-tag">Geo-Spatial Data</span>
-          <span class="exp-tag">HUD Systems</span><span class="exp-tag">VR (Meta, Varjo)</span>
-          <span class="exp-tag">Multiplayer</span><span class="exp-tag">UDP Networking</span>
-          <span class="exp-tag">VRPN</span><span class="exp-tag">Environment Systems</span>
-          <span class="exp-tag">Optimization</span>
-        </div>
-      </div>
-
-      <!-- LTX INTERN -->
-      <div class="exp-card reveal">
-        <div class="hud-corner tl"></div><div class="hud-corner br"></div>
-        <div class="exp-header">
-          <div class="exp-role">Game Developer — Internship</div>
-          <div class="exp-period">Jul 2024 – Aug 2024 · 2 mos</div>
-        </div>
-        <div class="exp-company">// LTX — LaunchTrax</div>
-        <p class="exp-desc">Kickstarted development with Lama helicopter HUDs and initial flight simulation systems using JSBSim. Converted JSBSim into a reusable Unreal plugin for easy integration across projects. Delivered strong early contributions, leading to a full-time offer in a short time.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Rapid Prototyping</span><span class="exp-tag">System Design</span>
-          <span class="exp-tag">Performance Optimization</span><span class="exp-tag">Reusable Tools</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div id="skills-three-bg"></div>
-  <div class="container" style="position:relative;z-index:1;">
-    <div class="section-label">04 // Technical Skills</div>
-    <h2 class="section-title">Tech <span class="hl">Skills</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-
-    <div class="skills-pro-grid">
-
-      <!-- CATEGORY 1: Core Expertise -->
-      <div class="skill-cat-card reveal">
-        <div class="skill-cat-header">
-          <span class="skill-cat-icon">⬡</span>
-          <div class="skill-cat-title">Core Expertise</div>
-          <div class="skill-cat-sub">  Real-time systems, simulation, and scalable architecture</div>
-        </div>
-        <div class="skill-pro-list">
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unrealengine/unrealengine-original.svg" alt="UE"/>
-            <div class="spi-info"><div class="spi-name">Unreal Engine 5</div><div class="spi-tags"><span>C++</span><span>Blueprints</span><span>Level Design</span></div></div>
-            <div class="spi-badge expert">Expert</div>
-          </div>
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"/>
-            <div class="spi-info"><div class="spi-name">C++ Programming</div><div class="spi-tags"><span>Gameplay Systems</span><span>Optimization</span><span>Plugin Dev</span></div></div>
-            <div class="spi-badge expert">Expert</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">DT</div>
-            <div class="spi-info"><div class="spi-name">Digital Twin Systems</div><div class="spi-tags"><span>Architectural Viz</span><span>Live Data</span><span>VR Walkthroughs</span></div></div>
-            <div class="spi-badge expert">Expert</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">XR</div>
-            <div class="spi-info"><div class="spi-name">XR Development</div><div class="spi-tags"><span>VR</span><span>AR</span><span>MR</span><span>Meta · Varjo</span></div></div>
-            <div class="spi-badge expert">Expert</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">FS</div>
-            <div class="spi-info"><div class="spi-name">Flight Simulation</div><div class="spi-tags"><span>JSBSim</span><span>HUD Systems</span><span>Aircraft Rigging</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CATEGORY 2: Systems & Integration -->
-      <div class="skill-cat-card reveal">
-        <div class="skill-cat-header">
-          <span class="skill-cat-icon">⬡</span>
-          <div class="skill-cat-title">Systems &amp; Integration</div>
-          <div class="skill-cat-sub">Data pipelines &amp; runtime systems</div>
-        </div>
-        <div class="skill-pro-list">
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">API</div>
-            <div class="spi-info"><div class="spi-name">Real-time Data Integration</div><div class="spi-tags"><span>REST APIs</span><span>JSON</span><span>Google Sheets</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://img.icons8.com/color/96/networking-manager.png" alt="Net"/>
-            <div class="spi-info"><div class="spi-name">Networking &amp; UDP</div><div class="spi-tags"><span>UDP/TCP</span><span>Multiplayer</span><span>VRPN</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">PCG</div>
-            <div class="spi-info"><div class="spi-name">Procedural Generation</div><div class="spi-tags"><span>PCG Framework</span><span>Geo-Spatial</span><span>Lat/Long</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">UI</div>
-            <div class="spi-info"><div class="spi-name">UI Systems (UMG)</div><div class="spi-tags"><span>UMG</span><span>Dashboards</span><span>Interaction Design</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">PS</div>
-            <div class="spi-info"><div class="spi-name">Pixel Streaming</div><div class="spi-tags"><span>Cloud Deployment</span><span>Browser XR</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CATEGORY 3: Tools & Platforms -->
-      <div class="skill-cat-card reveal">
-        <div class="skill-cat-header">
-          <span class="skill-cat-icon">⬡</span>
-          <div class="skill-cat-title">Tools &amp; Platforms</div>
-          <div class="skill-cat-sub">Supporting technologies</div>
-        </div>
-        <div class="skill-pro-list">
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" alt="Unity"/>
-            <div class="spi-info"><div class="spi-name">Unity Engine</div><div class="spi-tags"><span>C#</span><span>XR Prototyping</span></div></div>
-            <div class="spi-badge intermediate">Intermediate</div>
-          </div>
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"/>
-            <div class="spi-info"><div class="spi-name">Git / Version Control</div><div class="spi-tags"><span>GitHub</span><span>Branching</span><span>CI Workflows</span></div></div>
-            <div class="spi-badge advanced">Advanced</div>
-          </div>
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" alt="Blender"/>
-            <div class="spi-info"><div class="spi-name">Blender / 3D Assets</div><div class="spi-tags"><span>Modeling</span><span>Rigging</span><span>Asset Pipeline</span></div></div>
-            <div class="spi-badge intermediate">Intermediate</div>
-          </div>
-          <div class="skill-pro-item">
-            <img class="spi-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"/>
-            <div class="spi-info"><div class="spi-name">Python / Scripting</div><div class="spi-tags"><span>Automation</span><span>Data Processing</span></div></div>
-            <div class="spi-badge intermediate">Intermediate</div>
-          </div>
-          <div class="skill-pro-item">
-            <div class="spi-icon-txt">AND</div>
-            <div class="spi-info"><div class="spi-name">Android / Cross-platform</div><div class="spi-tags"><span>Android Builds</span><span>ARCore</span><span>Perf. Opt.</span></div></div>
-            <div class="spi-badge intermediate">Intermediate</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Keyword Cloud -->
-    <div class="skill-keyword-row reveal">
-      <div class="skill-kw">JSBSim</div>
-      <div class="skill-kw org">UDP / TCP</div>
-      <div class="skill-kw">Blueprint Architecture</div>
-      <div class="skill-kw org">UMG UI</div>
-      <div class="skill-kw">REST APIs</div>
-      <div class="skill-kw org">Google Sheets API</div>
-      <div class="skill-kw">Real-time Data Sync</div>
-      <div class="skill-kw org">Inventory Systems</div>
-      <div class="skill-kw">PCG Framework</div>
-      <div class="skill-kw org">Geo-Spatial Data</div>
-      <div class="skill-kw">Pixel Streaming</div>
-      <div class="skill-kw org">JSON Analytics</div>
-      <div class="skill-kw">Performance Optimization</div>
-      <div class="skill-kw org">XR · AR/VR/MR</div>
-      <div class="skill-kw">Plugin Development</div>
-      <div class="skill-kw org">Weather API</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-label">05 // Projects</div>
-    <h2 class="section-title">Featured <span class="hl">Projects</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-    <div class="projects-grid">
-
-      <div class="project-card reveal" onclick="openMedia('assets/videos/CarVideo.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/Iceland A 02.png" alt="P1" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-         <div class="proj-badge">UE5 · Cinematics</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 01</div>
-          <div class="project-title">🚗 Automotive Showcase 4K Cinematic Rendering</div>
-          <p class="project-desc">
-          Highfidelity automotive visualization created in Unreal Engine using advanced lighting, materials, and Sequencer-based cinematic workflows for realistic 4K output.
-          </p>
-        </div>
-      </div>
-
-      <div class="project-card reveal" onclick="openMedia('assets/videos/FlightFollowSpline.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/Flight.png" alt="P2" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">UE5 · Simulation</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 02</div>
-          <div class="project-title">✈️ Flight Simulation Spline & CSV Drive</div>
-          <p class="project-desc">Aircraft movement driven by spline paths generated from CSV data, with real-time speed and path control via UI sliders.</p>
-        </div>
-      </div>
-
-      <div class="project-card reveal" onclick="openMedia('assets/videos/UDP Connection.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/Screenshot 2026-03-26 222050.png" alt="P3" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">UDP · Integration</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 03</div>
-          <div class="project-title">📡 Real-Time Data Communication UDP System</div>
-          <p class="project-desc">Created a UDP-based system to send and receive data between applications, with JSON used to store and manage the data.</p>
-        </div>
-      </div>
-
-      <div class="project-card reveal" onclick="openMedia('assets/videos/XR Interaction.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/image.png" alt="P4" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">XR · Interaction</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 04</div>
-          <div class="project-title">🏥 XR Hospital Interaction System</div>
-          <p class="project-desc">Developed an interactive XR system where doctors can view, manage, and update patient data in real time within an immersive environment.</p>
-        </div>
-      </div>
-
-      <div class="project-card reveal" onclick="openMedia('assets/videos/TreePark.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/treepark.png" alt="P5" onerror="this.style.display='none'"/>
-
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">Digital Twin · Archviz</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 05</div>
-          <div class="project-title">🏢 Archviz Digital Twin Application</div>
-          <p class="project-desc">Built a complete digital twin application for architectural visualization, enabling real-time interaction, navigation, and dynamic data-driven updates within a 3D environment.
-  </p></p>
-        </div>
-      </div>
-
-      <div class="project-card reveal" onclick="openMedia('assets/videos/FlightSimulation.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/Screenshot 2026-03-26 225136.png" alt="P6" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">Flight Sim · JSBSim</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 06</div>
-          <div class="project-title">✈️ Flight Simulation System  JSBSim Integration</div>
-          <p class="project-desc">Developed a complete flight simulation system using JSBSim, including aircraft rigging, animation, and real-time flight dynamics for accurate simulation behavior.</p>
-        </div>
-      </div>
-
-      <!-- EXTRA PROJECT 07 (hidden by default) -->
-      <div class="project-card reveal extra-project" style="display:none;"
-           onclick="openMedia('assets/videos/Air To Air Missile.MP4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/Screenshot 2026-03-26 225643.png" alt="P7" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">Flight Sim · Combat</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 07</div>
-          <div class="project-title">🎯 Air-to-Air Missile Targeting System</div>
-          <p class="project-desc">Implemented an air-to-air missile system with radar-based target detection, automatic enemy tracking, and guided missile firing within a flight simulation environment.
-  </p></p>
-        </div>
-      </div>
-
-            <div class="project-card reveal extra-project" style="display:none;"
-           onclick="openMedia('assets/videos/Unreal Engine Model Pro.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/project5 - frame at 0m3s.jpg" alt="P7" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">Runtime Tools · UE5</div>
-        </div>
-        <div class="project-body">
-          <div class="project-num">// Project 08</div>
-          <div class="project-title">🛠️ Runtime Modeling Tool Application</div>
-          <p class="project-desc">Created a runtime tool for importing models with undo/redo, duplicate, delete, and save/load features.
-  </p></p>
-        </div>
-      </div>
-
+  <!-- ── 1. HEADER NAVIGATION ── -->
+  <header class="header" id="header">
+    <div class="nav-container">
       
-            <div class="project-card reveal extra-project" style="display:none;"
-           onclick="openMedia('assets/videos/All in one project.mp4','video')">
-        <div class="project-thumb">
-          <img src="assets/Thumbnail/Screenshot 2026-03-25 144109.png" alt="P7" onerror="this.style.display='none'"/>
-          <div class="project-play-overlay"><div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="project-play-badge">VIDEO</div>
-          <div class="proj-badge">Showcase · UE5</div>
+      <!-- Brand Logo -->
+      <a class="nav-brand" href="#hero">
+        <div class="brand-logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 7L12 12L21 7L12 2Z" fill="#ffffff" fill-opacity="0.9"/>
+            <path d="M3 12L12 17L21 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 17L12 22L21 17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div class="project-body">
-          <div class="project-num">// Project 09</div>
-          <div class="project-title">🎬 Unreal Engine Showcase Reel</div>
-          <p class="project-desc">A complete showcase of my work in Unreal Engine, including simulation systems, digital twin applications, XR projects, and real-time visualization.
-  </p></p>
-        </div>
-      </div>
-
-    </div>
-    
-
-    <div style="text-align:center;margin-top:2.5rem;">
-      <button id="toggleBtn" class="btn-outline" onclick="toggleProjects()">View More ↓</button>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <div class="container">
-    <div class="section-label">06 // Captures</div>
-    <h2 class="section-title">Project <span class="hl">Gallery</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-
-    <div class="gallery-grid" id="galleryGrid">
-
-      <!-- visible by default (first 9) -->
-      <div class="gallery-item" onclick="openCert('assets/images/Iceland A 02.png')">
-        <img src="assets/images/Iceland A 02.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/img3.png')">
-        <img src="assets/images/img3.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/img5.png')">
-        <img src="assets/images/img5.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/Screenshot 2026-03-25 124802.png')">
-        <img src="assets/images/Screenshot 2026-03-25 124802.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/Screenshot 2026-03-25 124825.png')">
-        <img src="assets/images/Screenshot 2026-03-25 124825.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/Screenshot 2026-03-25 124943.png')">
-        <img src="assets/images/Screenshot 2026-03-25 124943.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/Screenshot 2026-03-25 124916.png')">
-        <img src="assets/images/Screenshot 2026-03-25 124916.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/Screenshot 2026-03-25 144041.png')">
-        <img src="assets/images/Screenshot 2026-03-25 144041.png" alt=""/>
-      </div>
-      <div class="gallery-item" onclick="openCert('assets/images/Screenshot 2026-03-25 124903.png')">
-        <img src="assets/images/Screenshot 2026-03-25 124903.png" alt=""/>
-      </div>
-
-      <!-- hidden by default — shown on View More -->
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/img4.png')">
-        <img src="assets/images/img4.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/Screenshot 2026-03-25 144007.png')">
-        <img src="assets/images/Screenshot 2026-03-25 144007.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/Screenshot 2026-03-25 125843.png')">
-        <img src="assets/images/Screenshot 2026-03-25 125843.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/Screenshot 2026-03-25 144109.png')">
-        <img src="assets/images/Screenshot 2026-03-25 144109.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/Screenshot 2026-03-25 144221.png')">
-        <img src="assets/images/Screenshot 2026-03-25 144221.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/Screenshot 2025-04-21 1930581.png')">
-        <img src="assets/images/Screenshot 2025-04-21 1930581.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/Screenshot 2025-04-27 174908.png')">
-        <img src="assets/images/Screenshot 2025-04-27 174908.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/img1.png')">
-        <img src="assets/images/img1.png" alt=""/>
-      </div>
-      <div class="gallery-item gallery-extra" onclick="openCert('assets/images/img6.png')">
-        <img src="assets/images/img6.png" alt=""/>
-      </div>
-
-    </div>
-
-    <div style="text-align:center;margin-top:2rem;">
-      <button id="galleryToggleBtn" class="btn-outline" onclick="toggleGallery()">View More ↓</button>
-    </div>
-  </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="container">
-    <div class="section-label">07 // Education</div>
-    <h2 class="section-title">Education &amp; <span class="hl">Certifications</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-    <div class="edu-grid reveal">
-      <div class="edu-card">
-        <div class="edu-degree">B.Tech · Mechanical Engineering</div>
-        <div class="edu-school">SV College of Engineering and Technology</div>
-        <div class="edu-meta"><span class="edu-badge score">85%</span><span class="edu-badge year">2019 – 2022</span></div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-degree">Diploma · Mechanical Engineering</div>
-        <div class="edu-school">Kuppam Engineering College</div>
-        <div class="edu-meta"><span class="edu-badge score">68%</span><span class="edu-badge year">2015 – 2019</span></div>
-      </div>
-    </div>
-    <div style="margin-top:2.5rem;" class="reveal">
-      <h3 class="section-subtitle">// Certifications &amp; Training</h3>
-      <div class="course-card">
-        <div class="course-title">AR/VR Experiences — Ajna Creator</div>
-        <div class="course-provider">// 6-Month Intensive · Certified</div>
-        <p class="course-desc">XR Interaction · Simulation Systems · Digital Twin Development · 3D Environment Creation</p>
-        <button class="cert-btn" onclick="openCert('assets/images/1718775828784.jpg')">View Certificate ↗</button>
-      </div>
-      <div class="course-card">
-        <div class="course-title">Full Stack Developer — JSpiders</div>
-        <div class="course-provider">// 6-Month Training · Certified</div>
-        <p class="course-desc">Java · HTML · CSS · JavaScript · React · SQL</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="section-label">08 // Contact</div>
-    <h2 class="section-title">Get In <span class="hl">Touch</span></h2>
-    <div class="hud-divider"><div class="hud-diamond"></div></div>
-    <div class="contact-inner">
-      <div class="contact-info reveal">
-       <p>
-      I am currently seeking opportunities in <strong>XR Simulation, Digital Twin systems, and real-time 3D applications</strong> using Unreal Engine.
-      I focus on building scalable, data-driven systems that combine real-world integration with interactive visualization.
-      If you're looking for someone with strong technical execution and a systems-oriented approach — I’d be glad to connect.
-      </p>
-        <div class="contact-links">
-          <a class="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=bsakhileshshetty@gmail.com" target="_blank">
-            <div class="contact-link-icon">✉</div>
-            <div class="contact-link-text"><span class="contact-link-lbl">Email</span>bsakhileshshetty@gmail.com</div>
-          </a>
-          <a class="contact-link" href="https://www.linkedin.com/in/akhilesh-b-s-a11a592b1/" target="_blank">
-            <div class="contact-link-icon">in</div>
-            <div class="contact-link-text"><span class="contact-link-lbl">LinkedIn</span>Akhilesh B S</div>
-          </a>
-          <a class="contact-link" href="https://github.com/BSAkhilesh" target="_blank">
-            <div class="contact-link-icon"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.15c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.09-.75.08-.73.08-.73 1.2.08 1.83 1.23 1.83 1.23 1.07 1.84 2.8 1.3 3.49 1 .1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.28-1.23 3.28-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg></div>
-            <div class="contact-link-text"><span class="contact-link-lbl">GitHub</span>BS Akhilesh</div>
-          </a>
-          <a class="contact-link" href="https://wa.me/917989591934" target="_blank">
-            <div class="contact-link-icon">📱</div>
-            <div class="contact-link-text"><span class="contact-link-lbl">WhatsApp</span>+91 7989591934</div>
-          </a>
-        </div>
-      </div>
-      <div class="hire-card reveal">
-      <h3>Available for Opportunities</h3>
-
-      <div class="availability">
-        <div class="avail-dot"></div>
-        Open to Full-time Roles
-      </div>
-
-      <p>
-      Looking to contribute as an <strong>XR Simulation / Digital Twin Engineer</strong>, working on real-time systems, interactive platforms, and scalable visualization solutions.
-      </p>
-
-      <a class="hire-btn" href="https://wa.me/917989591934" target="_blank">
-        💬 Contact Me
+        <span class="brand-text">AKHILESH<span class="accent-dot">.DEV</span></span>
       </a>
-        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-          <a href="assets/Akhilesh_BS_Resume.pdf" target="_blank" class="btn-outline" style="display:inline-block;font-size:.7rem;">⬇ View Resume</a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+          <li><a href="#hero" class="nav-link active" onclick="closeNav()">HOME</a></li>
+          <li><a href="#about" class="nav-link" onclick="closeNav()">ABOUT</a></li>
+          <li><a href="#services" class="nav-link" onclick="closeNav()">SERVICES</a></li>
+          <li><a href="#skills" class="nav-link" onclick="closeNav()">SKILLS</a></li>
+          <li><a href="#plugins" class="nav-link" onclick="closeNav()">FAB PLUGINS</a></li>
+          <li><a href="#projects" class="nav-link" onclick="closeNav()">PROJECTS</a></li>
+          <li><a href="#experience" class="nav-link" onclick="closeNav()">EXPERIENCE</a></li>
+          <li><a href="#contact" class="nav-link" onclick="closeNav()">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Action CTA -->
+      <div class="nav-right">
+        <a href="#contact" class="btn-pill-talk">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          <span>LET'S TALK</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── 2. HERO SECTION (STARTING PAGE) ── -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-mountains"></div>
+    <div class="hero-mesh-overlay"></div>
+    <div class="hero-center-glow"></div>
+
+    <div class="container hero-container">
+      
+      <!-- Left Column: Bio & Calls to Action -->
+      <div class="hero-content anim-reveal">
+        <div class="section-tag-inline">
+          <span class="tag-dash">—</span> HELLO, I'M
+        </div>
+
+        <h1 class="hero-title">
+          Akhilesh <span class="text-orange-gradient">B S</span>
+        </h1>
+
+        <div class="hero-role-row">
+          <span class="role-text" id="typewriterText">Unreal Engine 5 Developer</span>
+          <span class="role-cursor">|</span>
+        </div>
+
+        <p class="hero-description">
+          I build high-performance real-time simulation systems, digital twins, and interactive 3D applications using Unreal Engine 5 &amp; C++. Passionate about aerospace flight dynamics, data-driven systems, and turning complex engineering ideas into reality.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#contact" class="btn-pill-primary">
+            <span>HIRE ME</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#projects" class="btn-pill-secondary">
+            <span>VIEW MY WORK</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+          </a>
+        </div>
+
+        <div class="hero-status-row">
+          <div class="status-badge-inline">
+            <span class="status-pulse-dot"></span>
+            <span class="status-text">AVAILABLE FOR FULL-TIME ROLES</span>
+          </div>
+          <span class="status-sep">|</span>
+          <div class="location-badge-inline">
+            <span class="loc-pin">📍</span>
+            <span class="loc-text">Bengaluru, India</span>
+          </div>
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/BSAkhilesh" target="_blank" rel="noopener" class="social-circle-btn" aria-label="GitHub">
+            <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.15c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.09-.75.08-.73.08-.73 1.2.08 1.83 1.23 1.83 1.23 1.07 1.84 2.8 1.3 3.49 1 .1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.28-1.23 3.28-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/akhilesh-b-s-a11a592b1/" target="_blank" rel="noopener" class="social-circle-btn" aria-label="LinkedIn">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://wa.me/917989591934" target="_blank" rel="noopener" class="social-circle-btn" aria-label="WhatsApp">
+            <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          </a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bsakhileshshetty@gmail.com" target="_blank" rel="noopener" class="social-circle-btn" aria-label="Email">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Orbital Glowing Portrait with 5 Floating Badges -->
+      <div class="hero-visual anim-reveal">
+        <div class="hero-orbit-stage">
+          
+          <!-- Concentric Orange Glowing Rings -->
+          <div class="orbit-glow-disc"></div>
+          <div class="orbit-ring ring-outer-dashed"></div>
+          <div class="orbit-ring ring-mid-track"></div>
+          <div class="orbit-ring ring-inner-solid"></div>
+
+          <!-- Hero Portrait Frame -->
+          <div class="hero-avatar-frame">
+            <img src="assets/images/Akhil.jpeg" alt="Akhilesh B S" class="hero-avatar-img"/>
+          </div>
+
+          <!-- 1. Top Right Badge: Unreal Engine 5 (MATCHING USER'S GIVEN IMAGE) -->
+          <div class="floating-tech-card badge-top-right">
+            <div class="ftc-icon-circle ue-box">
+              <svg class="ue-official-icon" viewBox="0 0 128 128" fill="#ffffff">
+                <g fill-rule="evenodd">
+                  <path d="M100.61 72.875c-1.063 5.121-5.785 18.266-20.852 25.379l-6.05-6.8-10.212 10.261A37.67 37.67 0 0133.7 86.43c1.086.34 2.203.551 3.336.63 1.672.03 3.485-.583 3.485-3.391V55.974a4.57 4.57 0 00-5.735-4.57c-4.726 1.089-8.504 12.882-8.504 12.882a37.509 37.509 0 0112.98-28.738 38.043 38.043 0 0119.148-8.836c-5.16 2.942-8.058 7.739-8.058 11.762 0 6.477 3.898 5.692 5.054 4.739v37.379c.196.468.453.91.762 1.316a5.528 5.528 0 004.516 2.285c3.902 0 8.968-4.457 8.968-4.457V49.478c0-3.078-2.32-6.793-4.644-8.07 0 0 4.3-.762 7.621 1.777a28.338 28.338 0 011.984-2.183c7.747-7.598 15.04-9.762 21.117-10.844 0 0-11.047 8.683-11.047 20.332 0 8.664.223 29.789.223 29.789 4.098 3.957 10.195-1.758 15.703-7.403z"/>
+                  <path d="M64 2.383C29.973 2.383 2.383 29.973 2.383 64S29.973 125.617 64 125.617 125.617 98.027 125.617 64 98.027 2.383 64 2.383zm0 120.77C31.332 123.153 4.848 96.669 4.848 64 4.852 31.333 31.336 4.849 64.004 4.853c32.668 0 59.148 26.484 59.148 59.152S96.668 123.157 64 123.157z"/>
+                </g>
+              </svg>
+            </div>
+            <div class="ftc-text">
+              <span class="ftc-title">Unreal Engine 5</span>
+              <span class="ftc-sub">Games | Simulation | ArchViz</span>
+            </div>
+          </div>
+
+          <!-- 2. Middle Left Badge: C++ & Blueprints -->
+          <div class="floating-tech-card badge-mid-left">
+            <div class="ftc-icon-circle code-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="ftc-text">
+              <span class="ftc-title">C++ &amp; Blueprints</span>
+              <span class="ftc-sub">High-Performance Systems</span>
+            </div>
+          </div>
+
+          <!-- 3. Bottom Left Badge: JSBSim Flight Sim -->
+          <div class="floating-tech-card badge-bottom-left">
+            <div class="ftc-icon-circle sim-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+              </svg>
+            </div>
+            <div class="ftc-text">
+              <span class="ftc-title">JSBSim Flight Sim</span>
+              <span class="ftc-sub">Aerospace Simulations</span>
+            </div>
+          </div>
+
+          <!-- 4. Middle Right Badge: Interactive 3D Apps -->
+          <div class="floating-tech-card badge-mid-right">
+            <div class="ftc-icon-circle game-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="4"/>
+                <path d="M6 12h4m-2-2v4m9-3h.01m3 2h.01"/>
+              </svg>
+            </div>
+            <div class="ftc-text">
+              <span class="ftc-title">Interactive 3D Apps</span>
+              <span class="ftc-sub">Real-Time Experiences</span>
+            </div>
+          </div>
+
+          <!-- 5. Bottom Right Badge: Published Fab Plugins -->
+          <div class="floating-tech-card badge-bottom-right">
+            <div class="ftc-icon-circle fab-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <div class="ftc-text">
+              <span class="ftc-title">Published Fab Plugins</span>
+              <span class="ftc-sub">Tools for the Community</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── STATS BAR ── -->
+    <div class="container hero-stats-container anim-reveal">
+      <div class="hero-stats-bar">
+        
+        <div class="hsb-item">
+          <div class="hsb-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/>
+              <path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/>
+            </svg>
+          </div>
+          <div class="hsb-info">
+            <span class="hsb-number">2+</span>
+            <span class="hsb-label">Years Experience</span>
+          </div>
+        </div>
+
+        <div class="hsb-item">
+          <div class="hsb-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
+              <polyline points="7.5 19.79 7.5 14.6 3 12"/>
+              <polyline points="21 12 16.5 14.6 16.5 19.79"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <div class="hsb-info">
+            <span class="hsb-number">6+</span>
+            <span class="hsb-label">Projects Delivered</span>
+          </div>
+        </div>
+
+        <div class="hsb-item">
+          <div class="hsb-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="hsb-info">
+            <span class="hsb-number">100%</span>
+            <span class="hsb-label">Production Quality</span>
+          </div>
+        </div>
+
+        <div class="hsb-item">
+          <div class="hsb-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19.439 7.85c-.049-.322-.24-.606-.525-.769L13.1 3.518a1.2 1.2 0 0 0-1.2 0L6.086 7.081a.952.952 0 0 0-.525.769c-.049.323.048.65.263.882l5.814 6.275a.95.95 0 0 0 1.396 0l5.814-6.275c.215-.232.312-.559.263-.882z"/>
+              <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/>
+            </svg>
+          </div>
+          <div class="hsb-info">
+            <span class="hsb-number">2</span>
+            <span class="hsb-label">Fab Plugins Published</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── TECH STACK STRIP (Official Unreal Icon Added) ── -->
+    <div class="container hero-tech-stack-container anim-reveal">
+      <div class="hero-tech-strip">
+        <span class="tech-strip-label">TECH STACK</span>
+        
+        <div class="tech-pill-badges">
+          <div class="tech-badge-item">
+            <svg class="ue-official-icon" viewBox="0 0 128 128" fill="currentColor">
+              <g fill-rule="evenodd">
+                <path d="M100.61 72.875c-1.063 5.121-5.785 18.266-20.852 25.379l-6.05-6.8-10.212 10.261A37.67 37.67 0 0133.7 86.43c1.086.34 2.203.551 3.336.63 1.672.03 3.485-.583 3.485-3.391V55.974a4.57 4.57 0 00-5.735-4.57c-4.726 1.089-8.504 12.882-8.504 12.882a37.509 37.509 0 0112.98-28.738 38.043 38.043 0 0119.148-8.836c-5.16 2.942-8.058 7.739-8.058 11.762 0 6.477 3.898 5.692 5.054 4.739v37.379c.196.468.453.91.762 1.316a5.528 5.528 0 004.516 2.285c3.902 0 8.968-4.457 8.968-4.457V49.478c0-3.078-2.32-6.793-4.644-8.07 0 0 4.3-.762 7.621 1.777a28.338 28.338 0 011.984-2.183c7.747-7.598 15.04-9.762 21.117-10.844 0 0-11.047 8.683-11.047 20.332 0 8.664.223 29.789.223 29.789 4.098 3.957 10.195-1.758 15.703-7.403z"/>
+                <path d="M64 2.383C29.973 2.383 2.383 29.973 2.383 64S29.973 125.617 64 125.617 125.617 98.027 125.617 64 98.027 2.383 64 2.383zm0 120.77C31.332 123.153 4.848 96.669 4.848 64 4.852 31.333 31.336 4.849 64.004 4.853c32.668 0 59.148 26.484 59.148 59.152S96.668 123.157 64 123.157z"/>
+              </g>
+            </svg>
+            <span class="tbi-name">Unreal Engine 5</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon blue-c">⚡</span>
+            <span class="tbi-name">C++</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon purple-c">🔷</span>
+            <span class="tbi-name">Blueprints</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon yellow-c">🐍</span>
+            <span class="tbi-name">Python</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon black-c">▲</span>
+            <span class="tbi-name">Next.js</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon cyan-c">⚛️</span>
+            <span class="tbi-name">React</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon green-c">🟢</span>
+            <span class="tbi-name">Node.js</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon emerald-c">⚡</span>
+            <span class="tbi-name">Supabase</span>
+          </div>
+
+          <div class="tech-badge-item">
+            <span class="tbi-icon orange-c">🐙</span>
+            <span class="tbi-name">Git</span>
+          </div>
         </div>
       </div>
     </div>
+
+  </section>
+
+   
+   <!-- ── 3. ABOUT ME SECTION (CYBERPUNK SCI-FI UI MATCHING media_1790582978422.png) ── -->
+   <section class="about-section-exact" id="about">
+     <div class="about-bg-cyber-glow"></div>
+     <div class="about-dot-matrix"></div>
+ 
+     <div class="container">
+       <div class="about-split-grid">
+         
+         <!-- Left Column: Unique "The Developer" Card & Action Buttons -->
+         <div class="about-portrait-col anim-reveal">
+           
+           <div class="developer-card-container">
+             <!-- Glowing ambient backlight halo behind card -->
+             <div class="dev-card-ambient-glow"></div>
+ 
+             <!-- Complete uncropped unique artwork card -->
+             <div class="developer-card-frame">
+               <img 
+                 src="assets/images/AkhilAboutMe.png" 
+                 alt="Akhilesh B S — The Developer, Builder of Worlds, Interpreter of Realities" 
+                 class="developer-card-img" 
+               />
+             </div>
+           </div>
+ 
+           <!-- Action Buttons moved directly below the card as requested -->
+           <div class="about-card-btn-row">
+             <a href="assets/Akhilesh_BS_Resume.pdf" target="_blank" rel="noopener" class="btn-pill-primary">
+               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+               </svg>
+               <span>DOWNLOAD RESUME →</span>
+             </a>
+             <a href="#contact" class="btn-pill-secondary">
+               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                 <polyline points="22,6 12,13 2,6"/>
+               </svg>
+               <span>GET IN TOUCH →</span>
+             </a>
+           </div>
+ 
+         </div>
+ 
+         <!-- Right Column: Heading, Bio, 4 Stat Cards, Core Expertise Pills -->
+         <div class="about-content-col anim-reveal">
+           
+           <div class="section-tag-inline">
+             <span class="tag-dash">—</span> ABOUT ME <span class="tag-dash">—</span>
+           </div>
+ 
+           <h2 class="about-main-heading">
+             <span class="heading-line-1">Engineering <span class="text-orange-gradient">Real-Time Experiences</span></span>
+             <span class="heading-line-2">That Make a Difference</span>
+           </h2>
+ 
+           <div class="about-bio-stack">
+             <p class="about-body-text">
+               Hi, I'm <strong>Akhilesh B S</strong> — an <strong>XR Simulation Engineer</strong> and <strong>Unreal Engine C++ Developer</strong> with <strong>2+ years of professional experience</strong> building real-time simulation, digital twin, and interactive 3D applications.
+             </p>
+             <p class="about-body-text">
+               I specialize in connecting external engineering data with Unreal Engine — integrating <strong>JSBSim aerodynamics</strong> over <strong>low-latency UDP</strong>, live <strong>Google Sheets/CSV synchronization</strong>, real-time APIs, and building reusable C++ plugins for the <strong>Epic Games' Fab Marketplace</strong>.
+             </p>
+             <p class="about-body-text">
+               My work spans <strong>flight simulation</strong>, <strong>digital twin platforms</strong>, <strong>VR/XR applications</strong>, <strong>analytics tools</strong>, and <strong>real-time visualization systems</strong>, with a strong focus on performance, scalability, and immersive user experiences.
+             </p>
+           </div>
+ 
+           <!-- 4 Stat Cards in Exact Matching Row -->
+           <div class="about-stats-row">
+             
+             <!-- Stat 1: 2.5+ Years Experience -->
+             <div class="as-card">
+               <div class="as-icon-wrap">
+                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                   <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                   <path d="M4 22h16"/>
+                   <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/>
+                   <path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/>
+                 </svg>
+               </div>
+               <div class="as-num">2.5+</div>
+               <div class="as-label">Years Experience</div>
+               <div class="as-sub">in Unreal, Simulation<br/>&amp; 3D Development</div>
+             </div>
+ 
+             <!-- Stat 2: 6+ Projects Delivered -->
+             <div class="as-card">
+               <div class="as-icon-wrap">
+                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                   <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                   <line x1="12" y1="22.08" x2="12" y2="12"/>
+                 </svg>
+               </div>
+               <div class="as-num">6+</div>
+               <div class="as-label">Projects Delivered</div>
+               <div class="as-sub">Across Aviation,<br/>ArchViz &amp; XR</div>
+             </div>
+ 
+             <!-- Stat 3: 2 Published Fab Plugins -->
+             <div class="as-card">
+               <div class="as-icon-wrap">
+                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <path d="M19.439 7.85c-.049-.322-.24-.606-.525-.769L13.1 3.518a1.2 1.2 0 0 0-1.2 0L6.086 7.081a.952.952 0 0 0-.525.769c-.049.323.048.65.263.882l5.814 6.275a.95.95 0 0 0 1.396 0l5.814-6.275c.215-.232.312-.559.263-.882z"/>
+                   <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/>
+                 </svg>
+               </div>
+               <div class="as-num">2</div>
+               <div class="as-label">Published Fab Plugins</div>
+               <div class="as-sub">Reusable C++ Plugins<br/>on Fab Marketplace</div>
+             </div>
+ 
+             <!-- Stat 4: 100% Production Quality -->
+             <div class="as-card">
+               <div class="as-icon-wrap">
+                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                 </svg>
+               </div>
+               <div class="as-num">100%</div>
+               <div class="as-label">Production Quality</div>
+               <div class="as-sub">Performance, Stability<br/>&amp; Real-World Use</div>
+             </div>
+ 
+           </div>
+ 
+           <!-- ⚡ CORE EXPERTISE Header and 11 Pills (2 Rows matching given image) -->
+           <div class="about-core-expertise">
+             <div class="ce-header">
+               <span class="ce-bolt">⚡</span> CORE EXPERTISE
+             </div>
+             
+             <div class="ce-pills-wrap">
+               <!-- Row 1 -->
+               <div class="ce-pill">
+                 <svg class="ue-official-icon" viewBox="0 0 128 128" fill="currentColor">
+                   <g fill-rule="evenodd">
+                     <path d="M100.61 72.875c-1.063 5.121-5.785 18.266-20.852 25.379l-6.05-6.8-10.212 10.261A37.67 37.67 0 0133.7 86.43c1.086.34 2.203.551 3.336.63 1.672.03 3.485-.583 3.485-3.391V55.974a4.57 4.57 0 00-5.735-4.57c-4.726 1.089-8.504 12.882-8.504 12.882a37.509 37.509 0 0112.98-28.738 38.043 38.043 0 0119.148-8.836c-5.16 2.942-8.058 7.739-8.058 11.762 0 6.477 3.898 5.692 5.054 4.739v37.379c.196.468.453.91.762 1.316a5.528 5.528 0 004.516 2.285c3.902 0 8.968-4.457 8.968-4.457V49.478c0-3.078-2.32-6.793-4.644-8.07 0 0 4.3-.762 7.621 1.777a28.338 28.338 0 011.984-2.183c7.747-7.598 15.04-9.762 21.117-10.844 0 0-11.047 8.683-11.047 20.332 0 8.664.223 29.789.223 29.789 4.098 3.957 10.195-1.758 15.703-7.403z"/>
+                     <path d="M64 2.383C29.973 2.383 2.383 29.973 2.383 64S29.973 125.617 64 125.617 125.617 98.027 125.617 64 98.027 2.383 64 2.383zm0 120.77C31.332 123.153 4.848 96.669 4.848 64 4.852 31.333 31.336 4.849 64.004 4.853c32.668 0 59.148 26.484 59.148 59.152S96.668 123.157 64 123.157z"/>
+                   </g>
+                 </svg>
+                 <span>Unreal Engine 5</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon blue-hex">⬡</span>
+                 <span>C++</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon cyan-cross">❖</span>
+                 <span>Blueprints</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon slate-plane">✈</span>
+                 <span>JSBSim</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon orange-cube">⬢</span>
+                 <span>Simulation</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon orange-bldg">🏢</span>
+                 <span>Digital Twins</span>
+               </div>
+ 
+               <!-- Row 2 -->
+               <div class="ce-pill">
+                 <span class="pill-icon blue-link">🔗</span>
+                 <span>UDP / WebSockets</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon purple-vr">🥽</span>
+                 <span>VR / XR</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon green-sheet">📄</span>
+                 <span>Google Sheets / CSV</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon green-tree">🌲</span>
+                 <span>PCG</span>
+               </div>
+ 
+               <div class="ce-pill">
+                 <span class="pill-icon orange-gauge">⚡</span>
+                 <span>Optimization</span>
+               </div>
+             </div>
+           </div>
+ 
+         </div>
+ 
+       </div>
+     </div>
+   </section>
+ 
+
+  <!-- ── 4. SERVICES / CORE CAPABILITIES ── -->
+  <section class="services-section-v2" id="services">
+    <!-- Ambient Background Lighting & Grid -->
+    <div class="services-ambient-glow-left"></div>
+    <div class="services-ambient-glow-right"></div>
+    <div class="services-dot-grid"></div>
+
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-center-header anim-reveal">
+        <div class="section-tag-inline">
+          <span class="tag-dash">—</span> WHAT I DO <span class="tag-dash">—</span>
+        </div>
+        <h2 class="section-heading-center">
+          Engineering Real-Time Experiences<br class="desktop-only"/> That <span class="text-orange-gradient">Perform.</span>
+        </h2>
+        <p class="section-sub-center">
+          From flight simulation and digital twins to Unreal plugins and immersive XR systems.
+        </p>
+      </div>
+
+      <!-- 3x2 Grid of 6 High-Performance Capability Cards (Rectangular Proportions) -->
+      <div class="services-v2-grid">
+        
+        <!-- Card 1: Flight Simulation Systems -->
+        <div class="service-card-v2 anim-reveal" data-delay="0">
+          <div class="scv2-visual-wrapper">
+            <img src="assets/images/service_hd_1.jpg" alt="Flight Simulation Systems" class="scv2-bg-art" />
+            <div class="scv2-art-gradient"></div>
+          </div>
+          <div class="scv2-content">
+            <div class="scv2-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+              </svg>
+            </div>
+            <h3 class="scv2-title">Flight Simulation Systems</h3>
+            <p class="scv2-desc">
+              JSBSim integration, UDP telemetry, aircraft dynamics, cockpit HUD systems, and real-time flight simulation workflows.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Digital Twin & ArchViz Platforms -->
+        <div class="service-card-v2 anim-reveal" data-delay="100">
+          <div class="scv2-visual-wrapper">
+            <img src="assets/images/service_hd_2.jpg" alt="Digital Twin & ArchViz Platforms" class="scv2-bg-art" />
+            <div class="scv2-art-gradient"></div>
+          </div>
+          <div class="scv2-content">
+            <div class="scv2-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+                <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01"/>
+              </svg>
+            </div>
+            <h3 class="scv2-title">Digital Twin &amp; ArchViz Platforms</h3>
+            <p class="scv2-desc">
+              Real-time property visualization, floor/unit inventory systems, Google Sheets sync, and interactive 3D smart environments.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3: Unreal C++ & Plugin Development -->
+        <div class="service-card-v2 anim-reveal" data-delay="200">
+          <div class="scv2-visual-wrapper">
+            <img src="assets/images/service_hd_3.jpg" alt="Unreal C++ & Plugin Development" class="scv2-bg-art" />
+            <div class="scv2-art-gradient"></div>
+          </div>
+          <div class="scv2-content">
+            <div class="scv2-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3 class="scv2-title">Unreal C++ &amp; Plugin Development</h3>
+            <p class="scv2-desc">
+              Modular C++ architecture, Blueprint integration, reusable Fab marketplace plugins, UBT build tooling, and custom runtime systems.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4: VR/XR & Immersive Systems -->
+        <div class="service-card-v2 anim-reveal" data-delay="150">
+          <div class="scv2-visual-wrapper">
+            <img src="assets/images/service_hd_4.jpg" alt="VR/XR & Immersive Systems" class="scv2-bg-art" />
+            <div class="scv2-art-gradient"></div>
+          </div>
+          <div class="scv2-content">
+            <div class="scv2-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="4"/>
+                <circle cx="8" cy="12" r="2"/>
+                <circle cx="16" cy="12" r="2"/>
+                <path d="M12 9v6"/>
+              </svg>
+            </div>
+            <h3 class="scv2-title">VR/XR &amp; Immersive Systems</h3>
+            <p class="scv2-desc">
+              Meta Quest and Varjo integration, OpenXR, VRPN tracking, multiplayer VR, spatial interaction, and simulation experiences.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 5: Real-Time Networking & Integration -->
+        <div class="service-card-v2 anim-reveal" data-delay="250">
+          <div class="scv2-visual-wrapper">
+            <img src="assets/images/service_hd_5.jpg" alt="Real-Time Networking & Integration" class="scv2-bg-art" />
+            <div class="scv2-art-gradient"></div>
+          </div>
+          <div class="scv2-content">
+            <div class="scv2-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+            </div>
+            <h3 class="scv2-title">Real-Time Networking &amp; Integration</h3>
+            <p class="scv2-desc">
+              UDP/TCP telemetry, WebSockets, client-server replication, REST API integration, CSV data pipelines, and remote control systems.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 6: Performance & Rendering Optimization -->
+        <div class="service-card-v2 anim-reveal" data-delay="350">
+          <div class="scv2-visual-wrapper">
+            <img src="assets/images/service_hd_6.jpg" alt="Performance & Rendering Optimization" class="scv2-bg-art" />
+            <div class="scv2-art-gradient"></div>
+          </div>
+          <div class="scv2-content">
+            <div class="scv2-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <h3 class="scv2-title">Performance &amp; Rendering Optimization</h3>
+            <p class="scv2-desc">
+              Nanite &amp; Lumen rendering, Unreal Insights CPU/GPU profiling, memory tuning, draw-call reduction, and high-framerate stability.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. SKILLS & TECHNOLOGIES (COMPACT SQUARE TILES ARSENAL) ── -->
+  <section class="skills-arsenal-section" id="skills">
+    <!-- Subtle tech dot grid background -->
+    <div class="skills-dot-grid"></div>
+
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-center-header anim-reveal">
+        <div class="section-tag-inline">
+          <span class="tag-dash">—</span> TECHNICAL ARSENAL <span class="tag-dash">—</span>
+        </div>
+        <h2 class="section-heading-center">
+          Skills &amp; Core <span class="text-orange-gradient">Technologies.</span>
+        </h2>
+        <p class="section-sub-center">
+          Specialized simulation frameworks, modern web ecosystems, cloud databases, and real-time development pipelines.
+        </p>
+      </div>
+
+      <!-- 21 Square Skill Cards in Unified Grid (3 Rows of 7 on Desktop) -->
+      <div class="skills-square-grid anim-reveal">
+
+        <!-- 1. Unreal Engine 5 -->
+        <div class="skill-tile-card" style="--brand-color: #ffffff; --brand-glow: rgba(255, 255, 255, 0.15);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#ffffff"><path d="M12 0a12 12 0 1012 12A12 12 0 0012 0zm0 23.52A11.52 11.52 0 1123.52 12 11.52 11.52 0 0112 23.52zm7.13-9.791c-.206.997-1.126 3.557-4.06 4.942l-1.179-1.325-1.988 2a7.338 7.338 0 01-5.804-2.978 2.859 2.859 0 00.65.123c.326.006.678-.114.678-.66v-5.394a.89.89 0 00-1.116-.89c-.92.212-1.656 2.509-1.656 2.509a7.304 7.304 0 012.528-5.597 7.408 7.408 0 013.73-1.721c-1.006.573-1.57 1.507-1.57 2.29 0 1.262.76 1.109.984.923v7.28a1.157 1.157 0 00.148.256 1.075 1.075 0 00.88.445c.76 0 1.747-.868 1.747-.868V9.172c0-.6-.452-1.324-.905-1.572 0 0 .838-.149 1.484.346a5.537 5.537 0 01.387-.425c1.508-1.48 2.929-1.902 4.112-2.112 0 0-2.151 1.69-2.151 3.96 0 1.687.043 5.801.043 5.801.799.771 1.986-.342 3.059-1.441Z"/></svg>
+          </div>
+          <span class="stc-title">Unreal Engine 5</span>
+        </div>
+
+        <!-- 2. Modern C++ -->
+        <div class="skill-tile-card" style="--brand-color: #00599C; --brand-glow: rgba(0, 89, 156, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24"><path fill="#00599C" d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91z"/><path fill="#ffffff" d="M12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"/></svg>
+          </div>
+          <span class="stc-title">Modern C++</span>
+        </div>
+
+        <!-- 3. Blueprints -->
+        <div class="skill-tile-card" style="--brand-color: #0EA5E9; --brand-glow: rgba(14, 165, 233, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"/></svg>
+          </div>
+          <span class="stc-title">Blueprints</span>
+        </div>
+
+        <!-- 4. Python -->
+        <div class="skill-tile-card" style="--brand-color: #FFD438; --brand-glow: rgba(255, 212, 56, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24"><path fill="#3776AB" d="M11.922 0C6.398 0 6.74 2.395 6.74 2.395l.006 2.48h5.275v.744H4.558S1.5 5.27 1.5 10.825c0 5.556 2.668 5.358 2.668 5.358h1.591v-2.235s-.088-2.668 2.62-2.668h5.234s2.533.04 2.533-2.455V2.395S16.634 0 11.922 0zm-2.735 1.488a.992.992 0 110 1.984.992.992 0 010-1.984z"/><path fill="#FFD438" d="M12.078 24c5.524 0 5.182-2.395 5.182-2.395l-.006-2.48h-5.275v-.744h7.463s3.058.349 3.058-5.206c0-5.556-2.668-5.358-2.668-5.358h-1.591v2.235s.088 2.668-2.62 2.668h-5.234s-2.533-.04-2.533 2.455v6.429S7.366 24 12.078 24zm2.735-1.488a.992.992 0 110-1.984.992.992 0 010 1.984z"/></svg>
+          </div>
+          <span class="stc-title">Python</span>
+        </div>
+
+        <!-- 5. Next.js -->
+        <div class="skill-tile-card" style="--brand-color: #ffffff; --brand-glow: rgba(255, 255, 255, 0.2);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#ffffff"><path d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z"/></svg>
+          </div>
+          <span class="stc-title">Next.js</span>
+        </div>
+
+        <!-- 6. React -->
+        <div class="skill-tile-card" style="--brand-color: #61DAFB; --brand-glow: rgba(97, 218, 251, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#61DAFB"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg>
+          </div>
+          <span class="stc-title">React</span>
+        </div>
+
+        <!-- 7. Node.js -->
+        <div class="skill-tile-card" style="--brand-color: #5FA04E; --brand-glow: rgba(95, 160, 78, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#5FA04E"><path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072a.315.315 0 0 0-.271 0L3.075 6.68a.276.276 0 0 0-.139.241v10.15c0 .097.054.189.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.112.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L2.28 18.675c-.57-.329-.922-.945-.922-1.604V6.921c0-.659.353-1.275.922-1.603l8.795-5.082c.557-.315 1.296-.315 1.848 0l8.794 5.082c.57.329.924.944.924 1.603v10.15c0 .659-.354 1.273-.924 1.604l-8.794 5.078c-.35.195-.669.279-.995.279zM19.099 13.993c0-1.9-1.284-2.406-3.987-2.763-2.731-.361-3.009-.548-3.009-1.187 0-.528.235-1.233 2.258-1.233 1.807 0 2.473.389 2.747 1.607.024.115.129.199.247.199h1.141c.071 0 .138-.031.186-.081.048-.054.074-.123.067-.196-.177-2.098-1.571-3.076-4.388-3.076-2.508 0-4.004 1.058-4.004 2.833 0 1.925 1.488 2.457 3.895 2.695 2.88.282 3.103.703 3.103 1.269 0 .983-.789 1.402-2.642 1.402-2.327 0-2.839-.584-3.011-1.742a.258.258 0 0 0-.253-.215h-1.137a.257.257 0 0 0-.254.253c0 1.482.806 3.248 4.655 3.248 3.847 0 5.445-1.097 5.445-3.014z"/></svg>
+          </div>
+          <span class="stc-title">Node.js</span>
+        </div>
+
+        <!-- 8. Supabase -->
+        <div class="skill-tile-card" style="--brand-color: #3ECF8E; --brand-glow: rgba(62, 207, 142, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#3ECF8E"><path d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z"/></svg>
+          </div>
+          <span class="stc-title">Supabase</span>
+        </div>
+
+        <!-- 9. Vercel -->
+        <div class="skill-tile-card" style="--brand-color: #ffffff; --brand-glow: rgba(255, 255, 255, 0.2);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#ffffff"><path d="m12 1.608 12 20.784H0Z"/></svg>
+          </div>
+          <span class="stc-title">Vercel</span>
+        </div>
+
+        <!-- 10. JSBSim FDM -->
+        <div class="skill-tile-card" style="--brand-color: #ff6b00; --brand-glow: rgba(255, 107, 0, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+          </div>
+          <span class="stc-title">JSBSim FDM</span>
+        </div>
+
+        <!-- 11. UDP / TCP -->
+        <div class="skill-tile-card" style="--brand-color: #00C3FF; --brand-glow: rgba(0, 195, 255, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00C3FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+          </div>
+          <span class="stc-title">UDP / TCP</span>
+        </div>
+
+        <!-- 12. WebSockets -->
+        <div class="skill-tile-card" style="--brand-color: #38BDF8; --brand-glow: rgba(56, 189, 248, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#38BDF8"><path d="M11.9362.0137a12.1694 12.1694 0 00-2.9748.378C5.228 1.488 2.302 4.414 1.206 8.15a12.24 12.24 0 00-.814 3.864c0 3.012.98 5.86 2.766 8.16l1.242-1.396a10.37 10.37 0 01-2.146-6.764c0-2.588.924-5.044 2.604-7.014 1.68-1.97 4.01-3.236 6.55-3.568a10.45 10.45 0 017.382 1.956l1.32-1.32A12.27 12.27 0 0011.936.014zm4.27 4.542a8.62 8.62 0 00-4.27-.47c-2.09.28-3.99 1.34-5.32 2.97a8.55 8.55 0 00-1.84 5.38c0 2.12.76 4.14 2.14 5.76l1.29-1.29a6.76 6.76 0 01-1.57-4.47c0-1.64.6-3.2 1.68-4.46a6.76 6.76 0 014.21-2.35 6.8 6.8 0 014.77 1.36l1.28-1.28a8.56 8.56 0 00-2.37-1.19zM12 9.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+          </div>
+          <span class="stc-title">WebSockets</span>
+        </div>
+
+        <!-- 13. REST APIs -->
+        <div class="skill-tile-card" style="--brand-color: #F59E0B; --brand-glow: rgba(245, 158, 11, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+          </div>
+          <span class="stc-title">REST APIs</span>
+        </div>
+
+        <!-- 14. Google Sheets API -->
+        <div class="skill-tile-card" style="--brand-color: #0F9D58; --brand-glow: rgba(15, 157, 88, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#0F9D58"><path d="M19.5 0H7.5A2.25 2.25 0 005.25 2.25v19.5A2.25 2.25 0 007.5 24h12a2.25 2.25 0 002.25-2.25V2.25A2.25 2.25 0 0019.5 0zm.75 21.75c0 .414-.336.75-.75.75H7.5a.75.75 0 01-.75-.75V2.25c0-.414.336-.75.75-.75h12c.414 0 .75.336.75.75v19.5z"/><path d="M8.25 7.5h10.5v1.5H8.25zm0 3.75h4.5v1.5H8.25zm6 0h4.5v1.5h-4.5zm-6 3.75h4.5v1.5H8.25zm6 0h4.5v1.5h-4.5zm-6 3.75h4.5v1.5H8.25zm6 0h4.5v1.5h-4.5z"/></svg>
+          </div>
+          <span class="stc-title">Google Sheets API</span>
+        </div>
+
+        <!-- 15. Nanite & Lumen -->
+        <div class="skill-tile-card" style="--brand-color: #FBBF24; --brand-glow: rgba(251, 191, 36, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </div>
+          <span class="stc-title">Nanite &amp; Lumen</span>
+        </div>
+
+        <!-- 16. PCG Framework -->
+        <div class="skill-tile-card" style="--brand-color: #10B981; --brand-glow: rgba(16, 185, 129, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <span class="stc-title">PCG Framework</span>
+        </div>
+
+        <!-- 17. ArchViz -->
+        <div class="skill-tile-card" style="--brand-color: #38BDF8; --brand-glow: rgba(56, 189, 248, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="17" rx="1"/><rect x="14" y="9" width="7" height="12" rx="1"/><line x1="6.5" y1="8" x2="6.5" y2="8.01"/><line x1="6.5" y1="12" x2="6.5" y2="12.01"/><line x1="6.5" y1="16" x2="6.5" y2="16.01"/><line x1="17.5" y1="13" x2="17.5" y2="13.01"/><line x1="17.5" y1="17" x2="17.5" y2="17.01"/></svg>
+          </div>
+          <span class="stc-title">ArchViz</span>
+        </div>
+
+        <!-- 18. Digital Twins -->
+        <div class="skill-tile-card" style="--brand-color: #00C3FF; --brand-glow: rgba(0, 195, 255, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00C3FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <span class="stc-title">Digital Twins</span>
+        </div>
+
+        <!-- 19. Interactive 3D -->
+        <div class="skill-tile-card" style="--brand-color: #F43F5E; --brand-glow: rgba(244, 63, 94, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <span class="stc-title">Interactive 3D</span>
+        </div>
+
+        <!-- 20. Blender 3D -->
+        <div class="skill-tile-card" style="--brand-color: #e87500; --brand-glow: rgba(232, 117, 0, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 128 128"><path d="M66.332 70.032c.24-4.242 2.327-7.987 5.485-10.634 3.094-2.602 7.248-4.193 11.809-4.193 4.537 0 8.69 1.59 11.78 4.193 3.163 2.647 5.237 6.392 5.485 10.634.24 4.35-1.523 8.41-4.605 11.417-3.158 3.05-7.627 4.977-12.66 4.977-5.037 0-9.526-1.915-12.664-4.977-3.094-3.006-4.853-7.044-4.606-11.397zm0 0" fill="#235785"/><path d="M39.245 79.002c.028 1.66.564 4.89 1.36 7.404 1.682 5.336 4.537 10.273 8.49 14.599 4.062 4.465 9.074 8.055 14.85 10.61 6.073 2.67 12.665 4.037 19.505 4.037 6.84-.009 13.432-1.4 19.504-4.102 5.776-2.582 10.79-6.168 14.85-10.657 3.974-4.374 6.82-9.307 8.491-14.647a37 37 0 001.595-8.163c.208-2.69.12-5.405-.263-8.12a37.535 37.535 0 00-5.417-14.714c-2.574-4.15-5.916-7.76-9.89-10.813l.012-.004-39.955-30.506c-.036-.028-.068-.056-.104-.08-2.619-2.002-7.044-1.994-9.91.008-2.914 2.031-3.25 5.385-.656 7.496l-.012.008 16.682 13.484-50.789.051h-.068c-4.197.004-8.239 2.739-9.03 6.213-.82 3.521 2.035 6.46 6.412 6.46l-.008.016 25.736-.048L4.58 82.524c-.056.044-.12.088-.176.132C.069 85.95-1.33 91.446 1.4 94.9c2.778 3.522 8.666 3.546 13.047.02L39.505 74.51s-.368 2.758-.336 4.397zm64.56 9.219c-5.168 5.228-12.416 8.21-20.227 8.21-7.831.012-15.079-2.918-20.248-8.142-2.526-2.559-4.377-5.473-5.528-8.591a22.202 22.202 0 01-1.271-9.602 22.446 22.446 0 012.778-9.039c1.507-2.714 3.59-5.18 6.14-7.267 5.033-4.058 11.42-6.28 18.1-6.28 6.709-.008 13.097 2.174 18.13 6.236 2.55 2.075 4.625 4.529 6.14 7.243a22.302 22.302 0 012.774 9.043 22.313 22.313 0 01-1.271 9.598c-1.147 3.142-3.002 6.056-5.533 8.615zm0 0" fill="#e87500"/></svg>
+          </div>
+          <span class="stc-title">Blender 3D</span>
+        </div>
+
+        <!-- 21. Git & GitHub -->
+        <div class="skill-tile-card" style="--brand-color: #F05032; --brand-glow: rgba(240, 80, 50, 0.25);">
+          <div class="stc-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="#F05032"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.61-.406V8.814c-.221-.09-.426-.227-.608-.41-.533-.535-.674-1.318-.426-1.97L7.544 3.655.454 10.745c-.604.604-.604 1.581 0 2.186l10.482 10.48c.605.604 1.58.604 2.186 0l10.424-10.42c.606-.603.606-1.58 0-2.06z"/></svg>
+          </div>
+          <span class="stc-title">Git &amp; GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- ── 6. PUBLISHED UNREAL ENGINE PLUGINS (PINNED STACKING ACCORDION) ── -->
+  <section class="plugins-pinned-section" id="plugins">
+    <div class="plugins-pin-container">
+      <div class="plugins-pin-inner">
+
+        <div class="section-center-header">
+          <div class="section-tag-inline">
+            <span class="tag-dash">—</span> EPIC GAMES FAB MARKETPLACE <span class="tag-dash">—</span>
+          </div>
+          <h2 class="section-heading-center">Published Unreal Engine <span class="text-orange-gradient">Plugins.</span></h2>
+          <p class="section-sub-center">Production-ready C++ plugins and simulation systems published on Epic Games' official Fab Marketplace for studios worldwide.</p>
+        </div>
+
+        <div class="stack-accordion-wrapper" id="accordionStack">
+
+          <!-- Card 01 -->
+          <div class="stack-card" id="pcard-1">
+            <div class="stack-card-header" role="button" tabindex="0" aria-expanded="true" aria-controls="pbody-1">
+              <div class="stack-card-left">
+                <span class="stack-num-pill">01</span>
+                <div class="stack-meta-group">
+                  <span class="stack-meta-title">Insight Analytics – User Behavior Tracking &amp; Dashboard</span>
+                  <span class="stack-meta-sub">Epic Games Fab Marketplace · Unreal Engine 5</span>
+                </div>
+              </div>
+              <div class="stack-card-right">
+                <div class="stack-chevron-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-card-body" id="pbody-1">
+              <div class="stack-split-layout">
+                <!-- Left Side: Hero Image -->
+                <div class="stack-media-hero">
+                  <img src="assets/images/Analytics.jpg" alt="Insight Analytics – User Behavior Tracking &amp; Dashboard" loading="lazy" />
+                  <div class="stack-hero-badge">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Verified Fab Listing</span>
+                  </div>
+                </div>
+
+                <!-- Right Side: Next to Image, Text Content -->
+                <div class="stack-text-content">
+                  <h3 class="stack-content-title">Insight Analytics – User Behavior Tracking &amp; Dashboard</h3>
+                  <p class="stack-content-desc">
+                    A comprehensive, reusable Unreal Engine 5 analytics plugin for tracking user sessions, button clicks, engagement duration, and feature journeys. Features an interactive in-engine dashboard with visualization charts, drill-down reports, and encrypted local SaveGame JSON data storage without external cloud dependencies.
+                  </p>
+                  
+                  <ul class="stack-features-list">
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Interactive In-Engine Visualization Dashboard &amp; Charts</span>
+                    </li>
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Encrypted Local SaveGame JSON Data Storage (Zero Cloud Fees)</span>
+                    </li>
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Granular Session Telemetry, Button Clicks &amp; User Journeys</span>
+                    </li>
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Comprehensive PDF and DOC Report Export Tools</span>
+                    </li>
+                  </ul>
+
+                  <div class="stack-cta-row">
+                    <a href="https://www.fab.com/listings/f13fe6a8-b24d-4365-ad56-f1be8b3d3edd" target="_blank" rel="noopener" class="stack-cta-btn">
+                      <span>VIEW ON FAB MARKETPLACE</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 02 -->
+          <div class="stack-card" id="pcard-2">
+            <div class="stack-card-header" role="button" tabindex="0" aria-expanded="false" aria-controls="pbody-2">
+              <div class="stack-card-left">
+                <span class="stack-num-pill">02</span>
+                <div class="stack-meta-group">
+                  <span class="stack-meta-title">Mobile Web Controller for Unreal Applications</span>
+                  <span class="stack-meta-sub">Epic Games Fab Marketplace · WebSocket / HTTP C++</span>
+                </div>
+              </div>
+              <div class="stack-card-right">
+                <div class="stack-chevron-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack-card-body" id="pbody-2">
+              <div class="stack-split-layout">
+                <!-- Left Side: Hero Image -->
+                <div class="stack-media-hero">
+                  <img src="assets/images/Mobile Controller.jpg" alt="Mobile Web Controller for Unreal Applications" loading="lazy" />
+                  <div class="stack-hero-badge">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Verified Fab Listing</span>
+                  </div>
+                </div>
+
+                <!-- Right Side: Next to Image, Text Content -->
+                <div class="stack-text-content">
+                  <h3 class="stack-content-title">Mobile Web Controller for Unreal Applications</h3>
+                  <p class="stack-content-desc">
+                    Enables Unreal Engine applications to be controlled in real time from smartphones and tablets through a standard web browser. Features an embedded local C++ HTTP server, bi-directional WebSockets, instant QR code pairing, virtual touch joysticks, camera steering, and customizable Blueprint event dispatchers with zero mobile app downloads.
+                  </p>
+
+                  <ul class="stack-features-list">
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Instant QR Code Browser Pairing (Zero App Store Downloads)</span>
+                    </li>
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Embedded Local C++ HTTP Server &amp; Bi-directional WebSockets</span>
+                    </li>
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Responsive Virtual Touch Joysticks &amp; Smooth Camera Steering</span>
+                    </li>
+                    <li class="stack-feature-item">
+                      <span class="stack-feature-bullet">✓</span>
+                      <span>Customizable Blueprint Event Dispatchers &amp; UI Controls</span>
+                    </li>
+                  </ul>
+
+                  <div class="stack-cta-row">
+                    <a href="https://www.fab.com/listings/d2b5b938-aafb-40af-8203-aec26f2754ca" target="_blank" rel="noopener" class="stack-cta-btn">
+                      <span>VIEW ON FAB MARKETPLACE</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. FEATURED PROJECTS ── -->
+  <section class="section-padded bg-dark-alt" id="projects">
+    <div class="container">
+      <div class="section-header-row anim-reveal">
+        <div>
+          <div class="section-tag-inline">
+            <span class="tag-dash">—</span> FEATURED PROJECTS <span class="tag-dash">—</span>
+          </div>
+          <h2 class="section-heading">Some of My Recent Work</h2>
+        </div>
+        <a href="#projects" class="view-all-link">
+          <span>VIEW ALL PROJECTS</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="projects-tri-grid">
+
+        <div class="project-tri-card anim-reveal" data-delay="0" onclick="openMedia('assets/videos/FlightSimulation.mp4', 'video', 'Flight Simulation System – JSBSim Integration', 'Full flight dynamics system integrating open-source flight dynamics model JSBSim with Unreal Engine 5 over UDP socket pipeline.')">
+          <div class="ptc-thumb">
+            <img src="assets/Thumbnail/Screenshot 2026-03-26 225136.png" alt="Flight Simulation" loading="lazy"/>
+            <div class="ptc-play-overlay">
+              <div class="ptc-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></div>
+            </div>
+          </div>
+          <div class="ptc-body">
+            <div class="ptc-header">
+              <h3 class="ptc-title">Flight Simulation (JSBSim UDP)</h3>
+              <span class="ptc-open-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+            </div>
+            <p class="ptc-desc">
+              Integrated JSBSim aerodynamic flight physics with Unreal Engine over UDP sockets. Aircraft rigging, flight control surfaces, and cockpit HUD instrumentation.
+            </p>
+            <div class="ptc-tags">
+              <span>UE5</span><span>JSBSim</span><span>UDP</span><span>Cockpit HUD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-tri-card anim-reveal" data-delay="140" onclick="openMedia('assets/videos/TreePark.mp4', 'video', 'Archviz Digital Twin & Property Experience', 'End-to-end interactive digital twin platform featuring real-time property inventory, floorplan slicing, and dynamic environmental parameters.')">
+          <div class="ptc-thumb">
+            <img src="assets/Thumbnail/treepark.png" alt="TreePark Digital Twin" loading="lazy"/>
+            <div class="ptc-play-overlay">
+              <div class="ptc-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></div>
+            </div>
+          </div>
+          <div class="ptc-body">
+            <div class="ptc-header">
+              <h3 class="ptc-title">Archviz Digital Twin Application</h3>
+              <span class="ptc-open-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+            </div>
+            <p class="ptc-desc">
+              Real-time property visualization with live unit availability (sold/reserved/available) synchronized with Google Sheets and CSV cloud databases.
+            </p>
+            <div class="ptc-tags">
+              <span>Digital Twin</span><span>Google Sheets</span><span>Lumen</span><span>ArchViz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-tri-card anim-reveal" data-delay="280" onclick="openMedia('assets/videos/UDP Connection.mp4', 'video', 'Real-Time UDP Data Communication System', 'Low-latency bidirectional UDP protocol architecture transmitting telemetry packets serialized via JSON between independent simulation instances.')">
+          <div class="ptc-thumb">
+            <img src="assets/Thumbnail/Screenshot 2026-03-26 222050.png" alt="UDP Connection System" loading="lazy"/>
+            <div class="ptc-play-overlay">
+              <div class="ptc-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></div>
+            </div>
+          </div>
+          <div class="ptc-body">
+            <div class="ptc-header">
+              <h3 class="ptc-title">Real-Time UDP Data System</h3>
+              <span class="ptc-open-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+            </div>
+            <p class="ptc-desc">
+              Sub-15ms bidirectional UDP packet communication architecture exchanging structured JSON payloads across independent simulation systems.
+            </p>
+            <div class="ptc-tags">
+              <span>C++ Sockets</span><span>UDP</span><span>JSON</span><span>Low Latency</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-tri-card anim-reveal" data-delay="420" onclick="openMedia('assets/videos/CarVideo.mp4', 'video', 'Automotive Showcase 4K Cinematic Rendering', 'High-fidelity cinematic visualization rendered in Unreal Engine 5 using Lumen lighting, custom automotive shaders, and Sequencer workflows.')">
+          <div class="ptc-thumb">
+            <img src="assets/Thumbnail/Iceland A 02.png" alt="Automotive Showcase" loading="lazy"/>
+            <div class="ptc-play-overlay">
+              <div class="ptc-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></div>
+            </div>
+          </div>
+          <div class="ptc-body">
+            <div class="ptc-header">
+              <h3 class="ptc-title">Automotive 4K Cinematic</h3>
+              <span class="ptc-open-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+            </div>
+            <p class="ptc-desc">
+              High-fidelity vehicle rendering and cinematic lighting using Unreal Engine 5, Lumen global illumination, and Movie Render Queue.
+            </p>
+            <div class="ptc-tags">
+              <span>Lumen 4K</span><span>Sequencer</span><span>Nanite</span><span>Materials</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-tri-card anim-reveal" data-delay="140" onclick="openMedia('assets/videos/XR Interaction.mp4', 'video', 'XR Hospital Interaction & Patient Telemetry System', 'Spatial 3D medical environment facilitating tactile VR interactions, real-time patient status dashboards, and equipment telemetry.')">
+          <div class="ptc-thumb">
+            <img src="assets/Thumbnail/image.png" alt="XR Hospital Interaction" loading="lazy"/>
+            <div class="ptc-play-overlay">
+              <div class="ptc-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></div>
+            </div>
+          </div>
+          <div class="ptc-body">
+            <div class="ptc-header">
+              <h3 class="ptc-title">XR Hospital Spatial Interaction</h3>
+              <span class="ptc-open-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+            </div>
+            <p class="ptc-desc">
+              Immersive spatial UI for healthcare simulation. Real-time patient monitoring, 3D interactive medical equipment, and tactile VR manipulation.
+            </p>
+            <div class="ptc-tags">
+              <span>Meta Quest</span><span>Spatial UI</span><span>OpenXR</span><span>Healthcare</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-tri-card anim-reveal" data-delay="280" onclick="openMedia('assets/videos/FlightFollowSpline.mp4', 'video', 'Flight Simulation Spline & CSV Drive', 'Aircraft trajectory and velocity profiles synchronized with external CSV waypoint datasets in real-time with responsive cockpit/camera controls.')">
+          <div class="ptc-thumb">
+            <img src="assets/Thumbnail/Flight.png" alt="Flight Simulation Spline" loading="lazy"/>
+            <div class="ptc-play-overlay">
+              <div class="ptc-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></div>
+            </div>
+          </div>
+          <div class="ptc-body">
+            <div class="ptc-header">
+              <h3 class="ptc-title">Flight Simulation Spline &amp; CSV</h3>
+              <span class="ptc-open-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+            </div>
+            <p class="ptc-desc">
+              Dynamic aircraft waypoint navigation driven by external CSV flight logs with responsive real-time speed regulation and path visualization.
+            </p>
+            <div class="ptc-tags">
+              <span>CSV Data</span><span>Splines</span><span>Avionics</span><span>Blueprint</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 8. WORK EXPERIENCE ── -->
+  <section class="section-padded" id="experience">
+    <div class="container">
+      <div class="section-center-header anim-reveal">
+        <div class="section-tag-inline">
+          <span class="tag-dash">—</span> CAREER HISTORY <span class="tag-dash">—</span>
+        </div>
+        <h2 class="section-heading-center">Work Experience</h2>
+        <p class="section-sub-center">Production-tested development experience across simulation engineering and digital twin platforms.</p>
+      </div>
+
+      <div class="experience-list-styled">
+
+        <div class="exp-row-card anim-reveal">
+          <div class="erc-badge current">Current Role</div>
+          <div class="erc-main">
+            <div class="erc-top">
+              <h3 class="erc-role">Unreal Engine Developer</h3>
+              <span class="erc-company">Credvest · Full-time</span>
+              <span class="erc-period">Oct 2025 – Present</span>
+            </div>
+            <ul class="erc-bullets">
+              <li>Developed real-time Digital Twin applications using Unreal Engine 5, C++, and Blueprints for interactive architectural visualization and property experiences.</li>
+              <li>Architected modular property inventory systems synchronized with Google Sheets and CSV data sources, enabling real-time visualization of property, floor, and unit information.</li>
+              <li>Engineered a WebSocket-based remote-control framework connecting Unreal Engine applications with Android devices and tablets for real-time application controls.</li>
+              <li>Developed runtime weather simulation systems using REST APIs with dynamic sky, lighting, and environmental updates.</li>
+              <li>Built reusable C++ analytics systems for tracking user interactions, feature usage, session statistics, and user journeys with structured JSON data storage.</li>
+              <li>Performed CPU, GPU, memory, and rendering optimization for Android, VR, and desktop platforms, focusing on stable real-time performance.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-row-card anim-reveal">
+          <div class="erc-badge">Full-time</div>
+          <div class="erc-main">
+            <div class="erc-top">
+              <h3 class="erc-role">Junior Unreal Engine Developer</h3>
+              <span class="erc-company">LTX-LaunchTrax · Full-time</span>
+              <span class="erc-period">Sep 2024 – Oct 2025 · 1.2 yrs</span>
+            </div>
+            <ul class="erc-bullets">
+              <li>Developed real-time flight simulation and gameplay systems using Unreal Engine 5, C++, and Blueprints for aircraft simulation applications.</li>
+              <li>Integrated JSBSim flight physics with Unreal Engine over UDP to provide real-time aircraft dynamics and support multiplayer mission workflows.</li>
+              <li>Built procedural environments using Unreal Engine PCG Framework with geo-spatial coordinate systems for scalable terrain generation.</li>
+              <li>Implemented VRPN-based synchronization between Unreal Engine and Unity for real-time distributed simulation workflows.</li>
+              <li>Developed cockpit HUD systems, aircraft interaction systems, and runtime gameplay features for carrier landing and dogfight simulations.</li>
+              <li>Optimized multiplayer VR applications for Meta Quest and Varjo headsets through CPU, GPU, memory, and runtime performance optimization.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-row-card anim-reveal">
+          <div class="erc-badge">Internship</div>
+          <div class="erc-main">
+            <div class="erc-top">
+              <h3 class="erc-role">Game Developer – Internship</h3>
+              <span class="erc-company">LTX-LaunchTrax</span>
+              <span class="erc-period">Jul 2024 – Aug 2024 · 2 mos</span>
+            </div>
+            <ul class="erc-bullets">
+              <li>Developed helicopter HUD systems and gameplay functionality using Unreal Engine 5 and JSBSim.</li>
+              <li>Converted JSBSim integration into a reusable Unreal Engine C++ plugin, reducing repetitive setup across simulation projects.</li>
+              <li>Assisted with aircraft interaction systems, gameplay features, runtime debugging, and Unreal Engine architecture.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Education & Certifications Section (Synchronized with Resume) -->
+      <div class="edu-cert-container anim-reveal">
+        <div class="edu-col">
+          <h3 class="edu-cert-title">
+            <span class="ec-icon">🎓</span> Education
+          </h3>
+          <div class="edu-card">
+            <div class="ec-degree">B.Tech in Mechanical Engineering</div>
+            <div class="ec-school">SV College of Engineering and Technology</div>
+            <div class="ec-meta">
+              <span class="ec-year">2019 – 2022</span>
+              <span class="ec-grade">85% Aggregate</span>
+            </div>
+          </div>
+          <div class="edu-card">
+            <div class="ec-degree">Diploma in Mechanical Engineering</div>
+            <div class="ec-school">Kuppam Engineering College</div>
+            <div class="ec-meta">
+              <span class="ec-year">2015 – 2019</span>
+              <span class="ec-grade">68% Aggregate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-col">
+          <h3 class="edu-cert-title">
+            <span class="ec-icon">📜</span> Certifications &amp; Training
+          </h3>
+          <div class="cert-card">
+            <div class="ec-degree">Artificial Intelligence in Unreal Engine 5</div>
+            <div class="ec-school">Packt / Coursera</div>
+            <div class="ec-meta"><span class="ec-badge-tag">AI / Behavior Trees / EQS</span></div>
+          </div>
+          <div class="cert-card">
+            <div class="ec-degree">AR/VR Experiences</div>
+            <div class="ec-school">Ajna Creator</div>
+            <div class="ec-meta"><span class="ec-badge-tag">Spatial Computing &amp; XR</span></div>
+          </div>
+          <div class="cert-card">
+            <div class="ec-degree">Full Stack Development</div>
+            <div class="ec-school">JSpiders</div>
+            <div class="ec-meta"><span class="ec-badge-tag">Web Technologies &amp; Architecture</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 9. TESTIMONIALS / ENGINEERING HIGHLIGHTS ── -->
+  <section class="section-padded bg-dark-alt" id="testimonials">
+    <div class="container">
+      <div class="section-center-header anim-reveal">
+        <div class="section-tag-inline">
+          <span class="tag-dash">—</span> ENGINEERING HIGHLIGHTS <span class="tag-dash">—</span>
+        </div>
+        <h2 class="section-heading-center">What Colleagues &amp; Teams Say</h2>
+        <p class="section-sub-center">Feedback and verified impact from simulation projects and enterprise collaborations.</p>
+      </div>
+
+      <div class="testimonials-tri-grid">
+
+        <div class="testi-card anim-reveal">
+          <p class="testi-quote">
+            "Akhilesh's integration of JSBSim over UDP delivered exact aircraft dynamics that matched our engineering expectations. His C++ plugin architecture saved weeks of integration time."
+          </p>
+          <div class="testi-author-row">
+            <div class="testi-avatar-circle">🎯</div>
+            <div class="testi-info">
+              <h4 class="testi-name">Simulation Lead</h4>
+              <p class="testi-org">Aerospace Flight Systems</p>
+            </div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+
+        <div class="testi-card anim-reveal">
+          <p class="testi-quote">
+            "The real-time Google Sheets property synchronization and WebSocket tablet controller Akhilesh engineered transformed our digital twin demonstrations into seamless client experiences."
+          </p>
+          <div class="testi-author-row">
+            <div class="testi-avatar-circle">🏢</div>
+            <div class="testi-info">
+              <h4 class="testi-name">Technical Director</h4>
+              <p class="testi-org">Real Estate &amp; Digital Twins</p>
+            </div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+
+        <div class="testi-card anim-reveal">
+          <p class="testi-quote">
+            "His attention to VR frame pacing and draw call optimization ensured our Varjo and Meta Quest builds ran at a locked 90 FPS with zero motion sickness during complex dogfight scenarios."
+          </p>
+          <div class="testi-author-row">
+            <div class="testi-avatar-circle">🥽</div>
+            <div class="testi-info">
+              <h4 class="testi-name">XR Project Engineer</h4>
+              <p class="testi-org">Immersive Training Labs</p>
+            </div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 10. CONTACT / GET IN TOUCH ── -->
+  <section class="section-padded" id="contact">
+    <div class="container">
+      <div class="section-tag-inline">
+        <span class="tag-dash">—</span> GET IN TOUCH <span class="tag-dash">—</span>
+      </div>
+
+      <div class="contact-split-layout">
+        
+        <div class="contact-pitch-col anim-reveal">
+          <h2 class="section-heading">Let's Build Something Amazing Together</h2>
+          <p class="contact-pitch-body">
+            Have a project in mind or looking for an <strong>Unreal Engine 5 Developer &amp; XR Simulation Engineer</strong>? Let's discuss how we can bring your simulation, digital twin, or real-time 3D vision to life.
+          </p>
+
+          <div class="contact-info-list">
+            <div class="ci-item">
+              <div class="ci-icon">✉️</div>
+              <div class="ci-text">
+                <span class="ci-label">Email</span>
+                <span class="ci-val">bsakhileshshetty@gmail.com</span>
+              </div>
+            </div>
+            <div class="ci-item">
+              <div class="ci-icon">📱</div>
+              <div class="ci-text">
+                <span class="ci-label">Phone / WhatsApp</span>
+                <span class="ci-val">+91 7989591934</span>
+              </div>
+            </div>
+            <div class="ci-item">
+              <div class="ci-icon">📍</div>
+              <div class="ci-text">
+                <span class="ci-label">Location</span>
+                <span class="ci-val">Bengaluru, India (Open to Worldwide Remote &amp; Relocation)</span>
+              </div>
+            </div>
+            <div class="ci-item">
+              <div class="ci-icon">⚡</div>
+              <div class="ci-text">
+                <span class="ci-label">Response Time</span>
+                <span class="ci-val">Within 24 hours</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-col anim-reveal">
+          <form class="styled-contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+            
+            <div class="form-row-duo">
+              <div class="form-field">
+                <input type="text" id="senderName" placeholder="Your Name" required/>
+              </div>
+              <div class="form-field">
+                <input type="email" id="senderEmail" placeholder="Your Email" required/>
+              </div>
+            </div>
+
+            <div class="form-row-duo">
+              <div class="form-field">
+                <select id="projectType">
+                  <option value="" disabled selected>Project Type</option>
+                  <option value="Full-Time Engineering Role">Full-Time Engineering Role</option>
+                  <option value="Flight Simulation System">Flight Simulation System</option>
+                  <option value="Digital Twin / ArchViz">Digital Twin / ArchViz</option>
+                  <option value="Unreal Plugin Development">Unreal Plugin Development</option>
+                  <option value="XR / VR Application">XR / VR Application</option>
+                  <option value="Technical Consultation">Technical Consultation</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <select id="budgetRange">
+                  <option value="" disabled selected>Engagement / Timeline</option>
+                  <option value="Immediate Hire">Immediate Hire</option>
+                  <option value="Within 1 Month">Within 1 Month</option>
+                  <option value="Contract / Freelance">Contract / Freelance</option>
+                  <option value="Discussion / Inquiry">Discussion / Inquiry</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <textarea id="messageBody" rows="5" placeholder="Tell me about your project, role, or requirements..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-pill-primary submit-btn">
+              <span>SEND MESSAGE</span>
+              <span class="btn-arrow">→</span>
+            </button>
+
+            <div class="form-status-msg" id="formStatusMsg"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 11. FOOTER ── -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      
+      <div class="footer-col brand-col">
+        <a class="nav-brand" href="#hero">
+          <div class="brand-logo-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L3 7L12 12L21 7L12 2Z" fill="#ffffff" fill-opacity="0.9"/>
+              <path d="M3 12L12 17L21 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 17L12 22L21 17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="brand-text">AKHILESH<span class="accent-dot">.DEV</span></span>
+        </a>
+        <p class="footer-tagline">
+          Building exceptional real-time digital simulations and digital twin experiences that drive results and create unforgettable immersive journeys.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">QUICK LINKS</h4>
+        <ul class="footer-links-list">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#plugins">Fab Plugins</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">CAPABILITIES</h4>
+        <ul class="footer-links-list">
+          <li><a href="#services">Flight Simulation</a></li>
+          <li><a href="#services">Digital Twin Systems</a></li>
+          <li><a href="#services">Unreal C++ Plugins</a></li>
+          <li><a href="#services">VR/XR Development</a></li>
+          <li><a href="#services">Performance Profiling</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">FOLLOW ME</h4>
+        <div class="footer-social-row">
+          <a href="https://github.com/BSAkhilesh" target="_blank" rel="noopener" class="social-circle-btn sm" aria-label="GitHub">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.15c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.09-.75.08-.73.08-.73 1.2.08 1.83 1.23 1.83 1.23 1.07 1.84 2.8 1.3 3.49 1 .1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.28-1.23 3.28-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/akhilesh-b-s-a11a592b1/" target="_blank" rel="noopener" class="social-circle-btn sm" aria-label="LinkedIn">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://wa.me/917989591934" target="_blank" rel="noopener" class="social-circle-btn sm" aria-label="WhatsApp">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          </a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bsakhileshshetty@gmail.com" target="_blank" rel="noopener" class="social-circle-btn sm" aria-label="Email">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="container fbb-inner">
+        <div>© 2026 Akhilesh B S. All rights reserved.</div>
+        <div class="fbb-right">Built with passion &amp; precision for Real-Time 3D ⚡</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── LIGHTBOX MODAL ── -->
+  <div class="modal-lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+    <div class="modal-dialog" id="lightboxDialog">
+      <div class="modal-header">
+        <div>
+          <h4 id="lbTitle" class="modal-title">Project Demonstration</h4>
+          <p id="lbDesc" class="modal-desc"></p>
+        </div>
+        <button class="modal-close-btn" onclick="closeMedia()" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-media-wrap" id="lightboxContent"></div>
+    </div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <p><span>Akhilesh B S</span> · XR Simulation Engineer</p>
-  <p>Building Real-Time Systems &amp; Digital Twin Solutions · © 2026</p>
-</footer>
-
-<!-- UNIFIED LIGHTBOX — handles video, youtube, images and certs -->
-<div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
-  <div class="lightbox-close" onclick="closeMedia()">✕</div>
-  <div id="lightbox-content"></div>
-</div>
-
-<script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
