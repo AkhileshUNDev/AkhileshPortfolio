@@ -310,14 +310,23 @@ function initPluginsAccordion() {
   body2.style.height = 'auto';
   body2.style.opacity = '1';
 
-  // Compute responsive layout metrics matching reference video
+  // Compute responsive layout metrics matching reference video & peeking header
   function getLayoutMetrics() {
     const isMobile = window.innerWidth <= 768;
     const stackOffset = isMobile ? 64 : 74; // Stacks neatly below Card 1 header
-    const card2H = card2.offsetHeight || 500;
-    const wrapperH = stackOffset + card2H + 16;
-    const startY = wrapperH + 60; // Positioned cleanly offscreen below
-    return { isMobile, stackOffset, card2H, wrapperH, startY };
+    const gap = isMobile ? 8 : 12;
+
+    const card1H = card1.offsetHeight || 460;
+    const card2H = card2.offsetHeight || 460;
+    const header2H = (card2.querySelector('.stack-card-header') ? card2.querySelector('.stack-card-header').offsetHeight : 62) || 62;
+
+    // Start position for Card 2: exactly below Card 1 so only Header 2 is in view
+    const startY = card1H + gap;
+
+    // Total wrapper height snuggly fitting Card 1 + Card 2 header (and Card 2 docked)
+    const wrapperH = Math.max(card1H + gap + header2H, stackOffset + card2H);
+
+    return { isMobile, stackOffset, gap, card1H, card2H, header2H, startY, wrapperH };
   }
 
   let metrics = getLayoutMetrics();
@@ -329,8 +338,9 @@ function initPluginsAccordion() {
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initial setup matching Reference Image 1:
-    // Card 1 centered at top: 0; Card 2 hidden below offscreen
+    // Initial setup:
+    // Card 1 centered at top: 0
+    // Card 2 positioned so its header pill bar sits directly below Card 1
     gsap.set(card1, { top: 0, zIndex: 10 });
     gsap.set(card2, { top: metrics.startY, zIndex: 20 });
     card1.classList.add('is-expanded');

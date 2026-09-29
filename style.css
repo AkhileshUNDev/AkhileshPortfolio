@@ -1601,8 +1601,6 @@ body {
 .stack-accordion-wrapper {
   position: relative;
   width: 100%;
-  min-height: 580px;
-  height: 590px;
   margin-top: 0.5rem;
   overflow: hidden;
 }
