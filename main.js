@@ -137,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           e.preventDefault();
-          const headerOffset = 74;
+          const isPlugins = targetId === '#plugins';
+          const headerOffset = isPlugins ? 0 : 74;
           const elementPosition = targetElement.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -339,8 +340,11 @@ function initPluginsAccordion() {
       scrollTrigger: {
         trigger: '#plugins',
         start: 'top top',
-        end: 'bottom bottom',
+        end: '+=750',
+        pin: true,
+        pinSpacing: true,
         scrub: 0.8,
+        anticipatePin: 1,
         invalidateOnRefresh: true
       }
     });
