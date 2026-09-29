@@ -137,8 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           e.preventDefault();
-          const isPlugins = targetId === '#plugins';
-          const headerOffset = isPlugins ? 0 : 74;
+          const headerOffset = 74;
           const elementPosition = targetElement.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -285,149 +284,61 @@ function handleFormSubmit(e) {
   }, 600);
 }
 
-// ── 9. PINNED SCROLL-DRIVEN STACKING ACCORDION (FAB PLUGINS) ───
+// ── 9. INTERACTIVE ACCORDION SHOWCASE (FAB PLUGINS) ───────────
 function initPluginsAccordion() {
-  const section = document.getElementById('plugins');
-  const stackWrapper = document.getElementById('accordionStack');
-  if (!section || !stackWrapper) return;
-
   const card1 = document.getElementById('pcard-1');
   const card2 = document.getElementById('pcard-2');
+  if (!card1 || !card2) return;
 
-  const body1 = document.getElementById('pbody-1');
-  const body2 = document.getElementById('pbody-2');
-  const wrapper = document.getElementById('accordionStack') || document.querySelector('.stack-accordion-wrapper');
+  function setActiveCard(cardNum) {
+    if (cardNum === 1) {
+      card1.classList.add('is-expanded');
+      const h1 = card1.querySelector('.stack-card-header');
+      if (h1) h1.setAttribute('aria-expanded', 'true');
 
-  if (!card1 || !card2 || !body1 || !body2) return;
-
-  // Check reduced motion
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) return;
-
-  // Keep both bodies fully rendered at natural height - NO CARD OPENING / HEIGHT DEFORMATION ANIMATION
-  body1.style.height = 'auto';
-  body1.style.opacity = '1';
-  body2.style.height = 'auto';
-  body2.style.opacity = '1';
-
-  // Compute responsive layout metrics matching reference video & peeking header
-  function getLayoutMetrics() {
-    const isMobile = window.innerWidth <= 768;
-    const stackOffset = isMobile ? 64 : 74; // Stacks neatly below Card 1 header
-    const gap = isMobile ? 8 : 12;
-
-    const card1H = card1.offsetHeight || 460;
-    const card2H = card2.offsetHeight || 460;
-    const header2H = (card2.querySelector('.stack-card-header') ? card2.querySelector('.stack-card-header').offsetHeight : 62) || 62;
-
-    // Start position for Card 2: exactly below Card 1 so only Header 2 is in view
-    const startY = card1H + gap;
-
-    // Total wrapper height snuggly fitting Card 1 + Card 2 header (and Card 2 docked)
-    const wrapperH = Math.max(card1H + gap + header2H, stackOffset + card2H);
-
-    return { isMobile, stackOffset, gap, card1H, card2H, header2H, startY, wrapperH };
-  }
-
-  let metrics = getLayoutMetrics();
-  if (wrapper) {
-    wrapper.style.height = `${metrics.wrapperH}px`;
-  }
-
-  let tl = null;
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Initial setup:
-    // Card 1 centered at top: 0
-    // Card 2 positioned so its header pill bar sits directly below Card 1
-    gsap.set(card1, { top: 0, zIndex: 10 });
-    gsap.set(card2, { top: metrics.startY, zIndex: 20 });
-    card1.classList.add('is-expanded');
-    card2.classList.remove('is-expanded');
-
-    tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#plugins',
-        start: 'top top',
-        end: '+=750',
-        pin: true,
-        pinSpacing: true,
-        scrub: 0.8,
-        anticipatePin: 1,
-        invalidateOnRefresh: true
-      }
-    });
-
-    // Matching Reference Images 2 & 4:
-    // Card 2 glides continuously and smoothly up from below over Card 1
-    tl.to(card2, {
-      top: () => metrics.stackOffset,
-      ease: 'none',
-      duration: 1,
-      onStart: () => {
-        card1.classList.remove('is-expanded');
-        card2.classList.add('is-expanded');
-      },
-      onReverseComplete: () => {
-        card2.classList.remove('is-expanded');
-        card1.classList.add('is-expanded');
-      }
-    }, 0);
-
-    // Recalculate on resize or scrolltrigger refresh
-    ScrollTrigger.addEventListener('refresh', () => {
-      metrics = getLayoutMetrics();
-      if (wrapper) wrapper.style.height = `${metrics.wrapperH}px`;
-      if (tl.progress() === 0) {
-        gsap.set(card2, { top: metrics.startY });
-      } else if (tl.progress() === 1) {
-        gsap.set(card2, { top: metrics.stackOffset });
-      }
-    });
-  }
-
-  // Interactive Click / Keyboard toggle support
-  function navigateCard(idx) {
-    if (tl) {
-      gsap.to(tl, {
-        progress: idx === 1 ? 1 : 0,
-        duration: 0.45,
-        ease: 'power2.out'
-      });
-      if (tl.scrollTrigger) {
-        const targetPos = idx === 1 ? tl.scrollTrigger.end : tl.scrollTrigger.start;
-        window.scrollTo({ top: targetPos, behavior: 'smooth' });
-      }
+      card2.classList.remove('is-expanded');
+      const h2 = card2.querySelector('.stack-card-header');
+      if (h2) h2.setAttribute('aria-expanded', 'false');
     } else {
-      metrics = getLayoutMetrics();
-      if (idx === 1) {
-        gsap.to(card2, { top: metrics.stackOffset, duration: 0.45, ease: 'power2.out' });
-        card1.classList.remove('is-expanded');
-        card2.classList.add('is-expanded');
-      } else {
-        gsap.to(card2, { top: metrics.startY, duration: 0.45, ease: 'power2.out' });
-        card2.classList.remove('is-expanded');
-        card1.classList.add('is-expanded');
-      }
+      card2.classList.add('is-expanded');
+      const h2 = card2.querySelector('.stack-card-header');
+      if (h2) h2.setAttribute('aria-expanded', 'true');
+
+      card1.classList.remove('is-expanded');
+      const h1 = card1.querySelector('.stack-card-header');
+      if (h1) h1.setAttribute('aria-expanded', 'false');
     }
   }
 
-  const h1 = card1.querySelector('.stack-card-header');
-  const h2 = card2.querySelector('.stack-card-header');
+  // Setup click and keyboard handlers on headers and chevron buttons
+  [
+    { card: card1, num: 1 },
+    { card: card2, num: 2 }
+  ].forEach(item => {
+    const header = item.card.querySelector('.stack-card-header');
+    if (!header) return;
 
-  [ { header: h1, idx: 0 }, { header: h2, idx: 1 } ].forEach(item => {
-    if (!item.header) return;
-    item.header.addEventListener('click', e => {
+    header.addEventListener('click', e => {
       if (e.target.closest('a')) return;
-      navigateCard(item.idx);
+      setActiveCard(item.num);
     });
-    item.header.addEventListener('keydown', e => {
+
+    header.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        navigateCard(item.idx);
+        setActiveCard(item.num);
       }
     });
-  });
-}
 
+    const chevron = item.card.querySelector('.stack-chevron-icon');
+    if (chevron) {
+      chevron.addEventListener('click', e => {
+        e.stopPropagation();
+        setActiveCard(item.num);
+      });
+    }
+  });
+
+  // Default state: Card 01 expanded, Card 02 header docked below
+  setActiveCard(1);
+}

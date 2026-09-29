@@ -1553,7 +1553,7 @@ body {
   color: #ffffff;
 }
 
-/* ── 8. PUBLISHED UNREAL ENGINE PLUGINS (PINNED STACKING ACCORDION) ── */
+/* ── 8. PUBLISHED UNREAL ENGINE PLUGINS (SMOOTH ACCORDION SHOWCASE) ── */
 .plugins-pinned-section {
   position: relative;
   background: 
@@ -1563,21 +1563,16 @@ body {
     #07090e;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  min-height: 100vh;
-  height: 100vh;
-  padding: 0;
+  padding: 5.5rem 0 6rem;
   overflow: hidden;
 }
 
 .plugins-pin-container {
-  height: 100%;
   width: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   box-sizing: border-box;
-  padding: 74px 0 1.5rem 0;
+  padding: 0;
   background: transparent;
 }
 
@@ -1587,49 +1582,49 @@ body {
   width: 92%;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-height: 870px;
-  justify-content: center;
 }
 
 .plugins-pin-inner .section-center-header {
-  margin-bottom: 1.4rem;
+  margin-bottom: 2rem;
   flex-shrink: 0;
 }
 
 /* Stacking Accordion Area */
 .stack-accordion-wrapper {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
   width: 100%;
   margin-top: 0.5rem;
-  overflow: hidden;
 }
 
 /* Stack Card */
 .stack-card {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: relative;
   background: rgba(12, 16, 25, 0.98);
-  border: 1px solid rgba(255, 107, 0, 0.28);
+  border: 1px solid rgba(255, 107, 0, 0.22);
   border-radius: 20px;
   overflow: hidden;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.85), 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 107, 0, 0.08);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform, top, opacity;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 107, 0, 0.04);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease;
 }
 
 .stack-card:hover {
+  border-color: rgba(255, 107, 0, 0.42);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 107, 0, 0.12);
+}
+
+.stack-card.is-expanded {
   border-color: rgba(255, 107, 0, 0.48);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 107, 0, 0.16);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 107, 0, 0.15);
 }
 
 /* Top Header Pill Bar */
 .stack-card-header {
-  height: 62px;
-  padding: 0 1.4rem;
+  height: 64px;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1637,12 +1632,16 @@ body {
   cursor: pointer;
   user-select: none;
   background: rgba(16, 21, 32, 0.94);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   transition: background 0.25s ease;
 }
 
-.stack-card-header:hover {
+.stack-card:hover .stack-card-header {
   background: rgba(22, 29, 44, 0.98);
+}
+
+.stack-card.is-expanded .stack-card-header {
+  border-bottom: 1px solid rgba(255, 107, 0, 0.12);
+  background: rgba(20, 26, 40, 0.98);
 }
 
 .stack-card-left {
@@ -1719,38 +1718,59 @@ body {
 }
 
 .stack-chevron-icon {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #8f9cae;
-  transition: transform 0.3s ease, color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .stack-card:hover .stack-chevron-icon {
   color: #ff8c38;
-  border-color: rgba(255, 107, 0, 0.4);
+  border-color: rgba(255, 107, 0, 0.45);
   background: rgba(255, 107, 0, 0.1);
 }
 
 .stack-card.is-expanded .stack-chevron-icon {
   transform: rotate(180deg);
   color: #ff6b00;
-  border-color: rgba(255, 107, 0, 0.45);
-  background: rgba(255, 107, 0, 0.14);
+  border-color: rgba(255, 107, 0, 0.6);
+  background: rgba(255, 107, 0, 0.18);
+  box-shadow: 0 0 12px rgba(255, 107, 0, 0.35);
 }
 
-/* Expandable Body: Side-by-Side Split Layout */
+/* Expandable Body: Hardware-accelerated CSS Grid transition */
 .stack-card-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  padding: 1.35rem 1.6rem 1.5rem;
   background: rgba(10, 13, 20, 0.95);
-  border-top: 1px solid rgba(255, 107, 0, 0.12);
   box-sizing: border-box;
+}
+
+.stack-card.is-expanded .stack-card-body {
+  grid-template-rows: 1fr;
+}
+
+.stack-body-content {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 1.6rem;
+  transition: opacity 0.35s ease 0.05s, padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stack-card.is-expanded .stack-body-content {
+  opacity: 1;
+  padding: 1.4rem 1.6rem 1.6rem;
 }
 
 .stack-split-layout {
